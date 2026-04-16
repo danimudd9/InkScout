@@ -1,0 +1,156 @@
+/* ===================== styles.css ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f1115, #1a1d24);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.logo-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.logo h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: #cfcfcf;
+  margin-bottom: 30px;
+}
+
+.cta {
+  background: #e11d2e;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1rem;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: 0.3s;
+}
+
+.cta:hover {
+  background: #ff2a3f;
+}
+
+.mockups {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.phone {
+  width: 220px;
+  height: 440px;
+  background: #111;
+  border-radius: 25px;
+  padding: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.phone-screen {
+  background: #1a1d24;
+  height: 100%;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 0.8rem;
+}
+
+.artist-card {
+  background: #2a2f3a;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.artist-card.highlight {
+  background: #e11d2e;
+}
+
+.desktop {
+  width: 600px;
+  background: #111;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: #2a2f3a;
+  color: white;
+}
+
+.search-bar button {
+  background: #e11d2e;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.artist-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #2a2f3a;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .desktop {
+    width: 100%;
+  }
+}
