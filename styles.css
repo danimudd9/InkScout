@@ -154,3 +154,59 @@ body {
     width: 100%;
   }
 }
+
+.mockups {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  margin-top: 50px;
+}
+
+.phone {
+  width: 220px;
+  height: 420px;
+  background: #111;
+  border-radius: 30px;
+  padding: 15px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.phone-screen {
+  background: #1a1a1a;
+  height: 100%;
+  border-radius: 20px;
+  padding: 15px;
+}
+
+.desktop {
+  background: #111;
+  padding: 25px;
+  border-radius: 15px;
+  width: 500px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #2a2a2a;
+  color: white;
+}
+
+
