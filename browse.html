@@ -1,0 +1,161 @@
+
+<!-- ===================== browse.html (Artist Search Page) ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Artists - InkScout</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- top -->
+
+<header class="nav">
+  <div class="logo">
+    <img src="assets/logo.png" class="logo-img">
+    <span>InkScout</span>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <!-- <a href="#">Top Artists</a> -->
+    <a href="#">Login</a>
+  </nav>
+</header>
+
+
+
+<!-- Search -->
+
+<section class="browse-header">
+  <h1>Browse Artists</h1>
+  <p>Find the right artist by style, location, or name.</p>
+</section>
+
+<section class="search-bar">
+   <select>
+    <option>Style</option>
+    <option>Black & Grey</option>
+    <option>Neo Traditional</option>
+    <option>Fine line</option>
+    <option>Japanese</option>
+  </select>
+  <input type="text" placeholder="Artist Name (e.g. Jane Doe)">
+  <select>
+    <option>Location</option>
+    <option>Alabama</option>
+    <option>Alaska</option>
+    <option>Arizona</option>
+    <option>Arkansas</option>
+    <option>California</option>
+    <option>Colorado</option>
+    <option>Connecticut</option>
+    <option>Delaware</option>
+    <option>Florida</option>
+    <option>Geogia</option>
+    <option>Hawaii</option>
+    <option>Idaho</option>
+    <option>Illinois</option>
+    <option>Indiana</option>
+    <option>Iowa</option>
+    <option>Kansas</option>
+    <option>Kentucky</option>
+    <option>Louisiana</option>
+    <option>Maine</option>
+    <option>Maryland</option>
+    <option>Massachusetts</option>
+    <option>Michigan</option>
+    <option>Minnesota</option>
+    <option>Mississippi</option>
+    <option>Missouri</option>
+    <option>Montana</option>
+    <option>Nebraska</option>
+    <option>Nevada</option>
+    <option>New Hampshire</option>
+    <option>New Jersey</option>
+    <option>New Mexico</option>
+    <option>New York</option>
+    <option>North Carolina</option>
+    <option>North Dakota</option>
+    <option>Ohio</option>
+    <option>Oklahoma</option>
+    <option>Oregon</option>
+    <option>Pennsylvania</option>
+    <option>Rhode Island</option>
+    <option>South Carolina</option>
+    <option>South Dakota</option>
+    <option>Tennessee</option>
+    <option>Texas</option>
+    <option>Utah</option>
+    <option>Vermont</option>
+    <option>Virginia</option>
+    <option>Washington</option>
+    <option>West Virginia</option>
+    <option>Wisconsin</option>
+    <option>Wyoming</option>
+
+
+
+
+  </select>
+  <button class="primary">Search</button>
+</section>
+
+<!-- artist styles carousel -->
+
+<section class="card-section fade-up">
+  <h2 class="section-title">Featured Styles</h2>
+
+  <div class="carousel">
+    <button class="carousel-btn left" id="leftBtn">‹</button>
+
+    <div class="card-container" id="carouselTrack">
+
+      <div class="card">
+        <img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Black & Grey">
+        <div class="card-body">
+          <h3>Black & Grey</h3>
+          <p>Clean shading and realism.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://tattoolist.co/wp-content/uploads/2020/03/Cat-tattoo-819x1024.jpg" alt="Neo Traditional">
+        <div class="card-body">
+          <h3>Neo Traditional</h3>
+          <p>Bold lines, vibrant color.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Fine Line">
+        <div class="card-body">
+          <h3>Fine Line</h3>
+          <p>Minimal and detailed work.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://i.pinimg.com/originals/ef/57/26/ef5726a82b982deed8641f45bad8fe52.webp" alt="Japanese">
+        <div class="card-body">
+          <h3>Japanese</h3>
+          <p>Traditional flowing designs.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="carousel-btn right" id="rightBtn">›</button>
+  </div>
+</section>
+
+
+</body>
+</html>
+
+

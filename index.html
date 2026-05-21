@@ -1,69 +1,158 @@
-<!-- index.html -->
+<!-- ===================== ANIMATED LANDING PAGE (index.html) ===================== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InkScout</title>
-
-  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manufacturing+Consent&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Link to CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
 
-    <div class="logo">
-      <img src="https://via.placeholder.com/50" class="logo-img">
-      <h1>InkScout</h1>
-    </div>
+<!-- top -->
 
-    <p class="tagline">Find Your Perfect Tattoo Artist</p>
-
-    <button class="cta">Browse Artists</button>
-
-    <div class="mockups">
-
-      <div class="phone">
-        <div class="phone-screen">
-          <div class="artist-card">
-            Micheal Schofield<br>
-            <small>Black & Grey</small>
-          </div>
-          <div class="artist-card highlight">
-            Edna Mode<br>
-            <small>Neo Traditional</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="desktop">
-        <div class="nav">
-          <span>InkScout</span>
-          <span>Explore | Top Artists | Login</span>
-        </div>
-
-        <div class="search-bar">
-          <input placeholder="Tattoo Style">
-          <input placeholder="Location">
-          <input placeholder="Min Rating">
-          <button>Search</button>
-        </div>
-
-        <div class="artist-row">
-          Micheal Schofield — Black & Grey
-        </div>
-        <div class="artist-row">
-          Edna Mode — Neo Traditional
-        </div>
-      </div>
-
-    </div>
-
+<header class="nav fade-down">
+  <div class="logo">
+    <img src="assets/logo.png" class="logo-img">
+    <span>InkScout</span>
   </div>
+  <nav>
+    <!-- <a href="#">Top Artists</a> -->
+    <a href="prelogin.html">Login</a>
+    <a href="#">Shop</a>
+
+  </nav>
+</header>
+
+<!-- introduction  -->
+
+<section class="hero">
+  <div class="hero-text fade-up">
+    <h1>Find Your Perfect Tattoo Artist</h1>
+    <p>Discover top-rated artists, explore styles, and book with confidence.</p>
+    <div class="hero-buttons">
+     <a href="browse.html">
+      <button class="primary">Browse Artists</button>
+    </a>
+      <a href="works.html">      
+        <button class="secondary">How It Works</button>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+<section>
+  <div class="homepic">
+      <img src="https://m.media-amazon.com/images/M/MV5BZmUxZmRiOWEtYWNmZC00YzBjLWE1YjktYjI3ZTZlZDIzNGI5XkEyXkFqcGc@._V1_.jpg">
+  </div>
+</section>
+
+
+
+
+<!-- top artists  -->
+<section>
+<div class="tatitle">
+  <h2> Top Artists</h2>
+</div>
+<div class="fire">
+  <p> Check out these 🔥 artists</p>
+</div>
+<section class="artist-grid">
+  <div class="artist-card">
+    <div class="artist-img">
+     <img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Black & Grey">
+    </div>
+    <div class="artist-info">
+      <h3>Ava Black</h3>
+      <p>Black & Grey</p>
+      <span class="rating">⭐ 4.9</span>
+      <a href="profile.html" class="view-btn">View Profile</a>
+    </div>
+  </div>
+
+  <div class="artist-card">
+    <div class="artist-img">
+      <img src="https://tattoolist.co/wp-content/uploads/2020/03/Cat-tattoo-819x1024.jpg" alt="Neo Traditional">
+    </div>
+    <div class="artist-info">
+      <h3>Rick Valor</h3>
+      <p>Neo Traditional</p>
+      <span class="rating">⭐ 4.8</span>
+      <a href="profile.html" class="view-btn">View Profile</a>
+    </div>
+  </div>
+
+  <div class="artist-card">
+    <div class="artist-img">
+      <img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Fine Line">
+    </div>
+    <div class="artist-info">
+      <h3>Maya Ink</h3>
+      <p>Fine Line</p>
+      <span class="rating">⭐ 5.0</span>
+      <a href="profile.html" class="view-btn">View Profile</a>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- bottom -->
+
+<footer class="footer fade-in">
+  <p>© 2026 InkScout. All rights reserved.</p>
+</footer>
+
+<!-- java for scroll buttons -->
+
+<script>
+const track = document.getElementById("carouselTrack");
+const leftBtn = document.getElementById("leftBtn");
+const rightBtn = document.getElementById("rightBtn");
+
+let scrollInterval;
+
+// START scrolling
+function startScroll(direction) {
+  stopScroll();
+
+  scrollInterval = setInterval(() => {
+    track.scrollLeft += direction * 10;
+  }, 10);
+}
+
+// STOP scrolling
+function stopScroll() {
+  clearInterval(scrollInterval);
+}
+
+// Hover events
+rightBtn.addEventListener("mouseenter", () => {
+  startScroll(1);
+});
+
+leftBtn.addEventListener("mouseenter", () => {
+  startScroll(-1);
+});
+
+rightBtn.addEventListener("mouseleave", stopScroll);
+leftBtn.addEventListener("mouseleave", stopScroll);
+</script>
+
+
+
 </body>
 </html>
+
 
 
