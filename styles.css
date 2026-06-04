@@ -46,9 +46,14 @@ body {
 }
 
 .logo-img {
-    width: 40px;
-      transition: transform 0.3s ease;
-      }
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(225, 29, 46, 0.6);
+  box-shadow: 0 0 12px rgba(225, 29, 46, 0.4);
+  transition: transform 0.3s ease;
+}
 
       .logo-img:hover {
         transform: rotate(10deg) scale(1.1);
@@ -69,7 +74,9 @@ body {
       
       .logo span {
         display: inline;
-        }.hero {
+}
+
+.hero {
   text-align: center;
   padding: 100px 20px;
 }
@@ -81,7 +88,8 @@ body {
 
 .hero p {
   color: #aaa;
-  margin-bottom: 30px;
+  margin-bottom: 30px;grep -n 'logo-img' /workspaces/InkScout/styles.css
+  
 }
 
 .hero-buttons {
