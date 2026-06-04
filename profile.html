@@ -1,0 +1,265 @@
+<!-- ===================== profile.html ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ava Black - InkScout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="nav fade-down">
+    <div class="logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>InkScout</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="browse.html">Browse</a>
+      <a href="prelogin.html">Login</a>
+    </nav>
+  </header>
+
+  <!-- ===================== PROFILE HEADER ===================== -->
+  <section class="profile-header fade-up">
+
+    <!-- Banner -->
+    <div class="profile-banner">
+      <img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1400&auto=format&fit=crop" alt="Profile Banner">
+    </div>
+
+    <!-- Avatar + identity -->
+    <div class="profile-identity">
+
+      <div class="profile-avatar-wrap">
+        <img class="profile-avatar" src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=300&auto=format&fit=crop" alt="Ava Black">
+        <!-- PRO BADGE — remove this block for standard accounts -->
+        <span class="pro-badge">⚡ PRO</span>
+      </div>
+
+      <div class="profile-meta">
+        <div class="profile-name-row">
+          <h1>Ava Black</h1>
+          <!-- PRO glow on name — remove class "pro-name" for standard accounts -->
+        </div>
+        <div class="profile-tags">
+          <span class="tag">🖤 Black & Grey</span>
+          <span class="tag">📍 Austin, TX</span>
+          <span class="tag">⭐ 4.9 (128 reviews)</span>
+        </div>
+        <div class="profile-actions">
+          <a href="booking.html?uid=sample-artist-uid" class="primary profile-book-btn" id="bookBtn">📅 Book a Consultation</a>
+          <button class="secondary profile-heart-btn" id="heartBtn" onclick="toggleHeart()">🤍 Save Artist</button>
+          <button class="secondary profile-heart-btn" id="msgBtn">💬 Message</button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <div class="profile-body">
+
+    <!-- LEFT COLUMN -->
+    <div class="profile-left">
+
+      <!-- Bio -->
+      <div class="profile-section">
+        <h2 class="profile-section-title">About</h2>
+        <p class="profile-bio">
+          I'm a Black & Grey realism artist based out of Austin, TX with over 8 years of professional experience.
+          I specialize in portrait work, nature scenes, and intricate geometric designs. Every piece I create
+          is custom — I don't do flash. If you've got a vision, let's make it happen.
+        </p>
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div class="profile-section">
+        <h2 class="profile-section-title">Portfolio</h2>
+        <div class="portfolio-grid">
+          <div class="portfolio-item">
+            <img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Portfolio 1">
+          </div>
+          <div class="portfolio-item">
+            <img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Portfolio 2">
+          </div>
+          <div class="portfolio-item">
+            <img src="https://images.unsplash.com/photo-1590246814883-57c511e4f57e?w=400&auto=format&fit=crop" alt="Portfolio 3">
+          </div>
+          <div class="portfolio-item">
+            <img src="https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?w=400&auto=format&fit=crop" alt="Portfolio 4">
+          </div>
+          <div class="portfolio-item">
+            <img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Portfolio 5">
+          </div>
+          <div class="portfolio-item">
+            <img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Portfolio 6">
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="profile-section">
+        <h2 class="profile-section-title">Reviews</h2>
+        <div class="reviews-list">
+
+          <div class="review-card">
+            <div class="review-top">
+              <span class="review-author">Jordan M.</span>
+              <span class="review-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <p class="review-text">"Ava is an absolute genius. My sleeve came out better than I ever imagined. The detail in the shading is unreal — I get compliments every single day."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-top">
+              <span class="review-author">Taylor R.</span>
+              <span class="review-stars">⭐⭐⭐⭐⭐</span>
+            </div>
+            <p class="review-text">"Super professional, clean studio, and the booking process through InkScout was seamless. 100% going back for my next piece."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-top">
+              <span class="review-author">Casey L.</span>
+              <span class="review-stars">⭐⭐⭐⭐½</span>
+            </div>
+            <p class="review-text">"Incredible artist. Brought my concept to life in a way I didn't think was possible. Highly recommend for anyone wanting realistic portrait work."</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN (sidebar) -->
+    <div class="profile-right">
+
+      <!-- Pro card -->
+      <div class="profile-sidebar-card pro-sidebar-card">
+        <div class="pro-sidebar-header">
+          <span class="pro-sidebar-badge">⚡ PRO ARTIST</span>
+        </div>
+        <p>Ava is a verified Pro member on InkScout — featured in search results and eligible for our Top Artists spotlight.</p>
+      </div>
+
+      <!-- Details card -->
+      <div class="profile-sidebar-card">
+        <h3>Details</h3>
+        <ul class="profile-details-list">
+          <li><span>📍</span> Austin, TX</li>
+          <li><span>🖤</span> Black & Grey</li>
+          <li><span>📅</span> Booking: Open</li>
+          <li><span>💰</span> Starting at $200/hr</li>
+          <li><span>🗣️</span> English</li>
+        </ul>
+      </div>
+
+      <!-- Social links card -->
+      <div class="profile-sidebar-card">
+        <h3>Follow</h3>
+        <div class="profile-socials">
+          <a href="#" class="social-link">📸 Instagram</a>
+          <a href="#" class="social-link">🎵 TikTok</a>
+          <a href="#" class="social-link">🌐 Website</a>
+        </div>
+      </div>
+
+      <!-- Book CTA card -->
+      <div class="profile-sidebar-card book-cta-card">
+        <h3>Ready to get inked?</h3>
+        <p>Book a consultation with Ava and bring your idea to life.</p>
+        <a href="booking.html?uid=sample-artist-uid" class="primary form-submit" id="sideBookBtn" style="display:block; text-align:center; text-decoration:none; margin-top:16px;">
+          📅 Book Now
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer fade-in">
+    <p>© 2026 InkScout. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      collection, doc, addDoc, getDocs,
+      query, where, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // ── Set booking links dynamically based on URL param ──
+    const profileArtistUid = urlParams.get('uid') || 'sample-artist-uid';
+    document.getElementById('bookBtn').href     = `booking.html?uid=${profileArtistUid}`;
+    document.getElementById('sideBookBtn').href = `booking.html?uid=${profileArtistUid}`;
+
+    // ── Heart / Save toggle ──
+    let saved = false;
+    window.toggleHeart = function() {
+      saved = !saved;
+      const btn = document.getElementById('heartBtn');
+      btn.textContent = saved ? '❤️ Saved' : '🤍 Save Artist';
+      btn.classList.toggle('heart-active', saved);
+    };
+
+    // ── Message button ──
+    // Artist UID for this profile — in production this comes from the URL param
+    // e.g. profile.html?uid=abc123
+    const urlParams  = new URLSearchParams(window.location.search);
+    const artistUid  = urlParams.get('uid') || 'sample-artist-uid';
+
+    document.getElementById('msgBtn').addEventListener('click', async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        window.location.href = 'canvas-login.html';
+        return;
+      }
+
+      try {
+        // Check if conversation already exists
+        const q = query(
+          collection(db, 'conversations'),
+          where('participants', 'array-contains', user.uid)
+        );
+        const snapshot = await getDocs(q);
+        let existingConvoId = null;
+
+        snapshot.forEach(docSnap => {
+          const data = docSnap.data();
+          if (data.participants.includes(artistUid)) {
+            existingConvoId = docSnap.id;
+          }
+        });
+
+        if (existingConvoId) {
+          // Conversation exists — go straight to it
+          window.location.href = `messages.html?convo=${existingConvoId}`;
+        } else {
+          // Create new conversation
+          const convoRef = await addDoc(collection(db, 'conversations'), {
+            participants:  [user.uid, artistUid],
+            lastMessage:   '',
+            lastMessageAt: serverTimestamp(),
+            unreadCount:   { [user.uid]: 0, [artistUid]: 0 },
+            createdAt:     serverTimestamp()
+          });
+          window.location.href = `messages.html?convo=${convoRef.id}`;
+        }
+      } catch (err) {
+        console.error('Could not open conversation:', err);
+      }
+    });
+  </script>
+
+<script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!-- ===================== artist-dashboard.html ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artist Dashboard - InkScout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="dash-sidebar" id="sidebar">
+
+    <div class="dash-logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>InkScout</span>
+    </div>
+
+    <nav class="dash-nav">
+      <a href="#" class="dash-nav-item active" data-tab="overview">
+        <span class="dash-nav-icon">📊</span> Overview
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="portfolio">
+        <span class="dash-nav-icon">🖼️</span> Portfolio
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="bookings">
+        <span class="dash-nav-icon">📅</span> Bookings
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="messages">
+        <span class="dash-nav-icon">💬</span> Messages
+        <span class="dash-badge" id="msgBadge" style="display:none">0</span>
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="settings">
+        <span class="dash-nav-icon">⚙️</span> Settings
+      </a>
+    </nav>
+
+    <div class="dash-sidebar-footer">
+      <a href="profile.html" class="dash-view-profile">👁 View Public Profile</a>
+      <button class="dash-logout-btn" id="logoutBtn">Sign Out</button>
+    </div>
+
+  </aside>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="dash-main">
+
+    <!-- Mobile header -->
+    <header class="dash-mobile-header">
+      <button class="dash-menu-btn" id="menuBtn">☰</button>
+      <span class="dash-mobile-title">InkScout</span>
+    </header>
+
+    <!-- ===== OVERVIEW TAB ===== -->
+    <div class="dash-tab active" id="tab-overview">
+
+      <!-- OG welcome banner — shown once on first login after OG registration -->
+      <div class="og-welcome-banner" id="ogWelcomeBanner" style="display:none;">
+        <div class="og-welcome-inner">
+          <span class="og-welcome-icon">🔥</span>
+          <div>
+            <h3>Welcome, OG Member!</h3>
+            <p>You're one of the first 10 artists on InkScout. Pro is yours — free for life. Thank you for being here from the start.</p>
+          </div>
+          <button class="og-welcome-close" onclick="document.getElementById('ogWelcomeBanner').style.display='none'">✕</button>
+        </div>
+      </div>
+
+      <div class="dash-page-header">
+        <div>
+          <h1 class="dash-welcome" id="welcomeName">Welcome back 👋</h1>
+          <p class="dash-subtitle">Here's how your profile is performing.</p>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <span class="og-badge" id="ogBadgeHeader" style="display:none">🔥 OG</span>
+          <span class="pro-badge dash-pro-badge" id="proBadgeHeader" style="display:none">⚡ PRO</span>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="dash-stats-row">
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">👁</span>
+          <div>
+            <p class="dash-stat-number">—</p>
+            <p class="dash-stat-label">Profile Views</p>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">❤️</span>
+          <div>
+            <p class="dash-stat-number">—</p>
+            <p class="dash-stat-label">Saves</p>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">📅</span>
+          <div>
+            <p class="dash-stat-number">—</p>
+            <p class="dash-stat-label">Bookings</p>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">⭐</span>
+          <div>
+            <p class="dash-stat-number">—</p>
+            <p class="dash-stat-label">Avg Rating</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile summary card -->
+      <div class="dash-card" id="profileSummaryCard">
+        <div class="dash-card-header">
+          <h2>Your Profile</h2>
+          <a href="#" class="dash-card-link" data-goto="settings">Edit →</a>
+        </div>
+        <div class="dash-profile-summary">
+          <div class="dash-profile-avatar-wrap">
+            <img class="dash-profile-avatar" id="dashAvatar"
+              src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=200&auto=format&fit=crop"
+              alt="Profile Photo">
+          </div>
+          <div class="dash-profile-info">
+            <p class="dash-profile-name" id="dashName">Loading...</p>
+            <p class="dash-profile-detail" id="dashStyle">—</p>
+            <p class="dash-profile-detail" id="dashLocation">—</p>
+            <p class="dash-profile-detail" id="dashPlan">—</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upgrade to Pro banner — only shown for standard accounts -->
+      <div class="dash-pro-upgrade-banner" id="proUpgradeBanner" style="display:none">
+        <div class="dash-pro-upgrade-text">
+          <h3>⚡ Upgrade to Pro</h3>
+          <p>Get boosted search visibility, a Pro badge, access to messaging & bookings, and a chance to be featured in Top Artists.</p>
+          <ul class="dash-pro-features">
+            <li>✔ Pro badge on your profile</li>
+            <li>✔ Boosted search ranking</li>
+            <li>✔ Direct messaging with clients</li>
+            <li>✔ Booking system access</li>
+            <li>✔ Featured in Top Artists</li>
+          </ul>
+        </div>
+        <div class="dash-pro-upgrade-cta">
+          <p class="dash-pro-price">$10<span>/month</span></p>
+          <a href="upgrade.html" class="primary dash-upgrade-btn">Upgrade Now</a>
+          <!-- TODO: Wire to Stripe checkout -->
+        </div>
+      </div>
+
+      <!-- Recent bookings preview -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h2>Recent Bookings</h2>
+          <a href="#" class="dash-card-link" data-goto="bookings">View all →</a>
+        </div>
+        <p class="dash-empty-state">No bookings yet. They'll show up here once clients start booking.</p>
+      </div>
+
+    </div>
+
+    <!-- ===== PORTFOLIO TAB ===== -->
+    <div class="dash-tab" id="tab-portfolio">
+      <div class="dash-page-header">
+        <div>
+          <h1>Portfolio</h1>
+          <p class="dash-subtitle">Manage the work displayed on your public profile.</p>
+        </div>
+        <button class="primary dash-upload-btn">+ Upload Photo</button>
+        <!-- TODO: Wire to Firebase Storage -->
+      </div>
+
+      <div class="dash-card">
+        <p class="dash-empty-state">No portfolio photos yet. Upload your work to attract clients.</p>
+        <!-- TODO: Render portfolio grid from Firestore -->
+      </div>
+    </div>
+
+    <!-- ===== BOOKINGS TAB ===== -->
+    <div class="dash-tab" id="tab-bookings">
+      <div class="dash-page-header">
+        <div>
+          <h1>Bookings</h1>
+          <p class="dash-subtitle">Manage your consultation and appointment requests.</p>
+        </div>
+      </div>
+
+      <!-- Pro gate — shown for standard accounts -->
+      <div class="dash-pro-gate" id="bookingsProGate" style="display:none">
+        <span class="dash-gate-icon">🔒</span>
+        <h3>Bookings are a Pro feature</h3>
+        <p>Upgrade to Pro to receive and manage booking requests from clients.</p>
+        <a href="upgrade.html" class="primary" style="margin-top:16px; display:inline-block;">Upgrade to Pro — $10/mo</a>
+      </div>
+
+      <div class="dash-card" id="bookingsContent">
+        <p class="dash-empty-state" id="bookingsEmpty" style="display:none">No booking requests yet.</p>
+        <div id="bookingsList"></div>
+      </div>
+    </div>
+
+    <!-- ===== MESSAGES TAB ===== -->
+    <div class="dash-tab" id="tab-messages">
+      <div class="dash-page-header">
+        <div>
+          <h1>Messages</h1>
+          <p class="dash-subtitle">Your conversations with clients.</p>
+        </div>
+      </div>
+
+      <!-- Pro gate -->
+      <div class="dash-pro-gate" id="messagesProGate" style="display:none">
+        <span class="dash-gate-icon">🔒</span>
+        <h3>Messaging is a Pro feature</h3>
+        <p>Upgrade to Pro to send and receive direct messages from clients.</p>
+        <a href="upgrade.html" class="primary" style="margin-top:16px; display:inline-block;">Upgrade to Pro — $10/mo</a>
+      </div>
+
+      <div class="dash-card" id="messagesContent">
+        <p class="dash-empty-state">No messages yet.</p>
+        <!-- TODO: Render messages from Firestore real-time listener -->
+      </div>
+    </div>
+
+    <!-- ===== SETTINGS TAB ===== -->
+    <div class="dash-tab" id="tab-settings">
+      <div class="dash-page-header">
+        <div>
+          <h1>Settings</h1>
+          <p class="dash-subtitle">Update your profile and account details.</p>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <h2 class="dash-card-title">Profile Info</h2>
+        <form class="register-form" id="settingsForm" style="max-width:480px; margin-top:20px;">
+
+          <div class="form-group">
+            <label>Display Name</label>
+            <input type="text" id="settingsName" placeholder="Your name">
+          </div>
+
+          <div class="form-group">
+            <label>Primary Style</label>
+            <select id="settingsStyle">
+              <option>Black & Grey</option>
+              <option>Neo Traditional</option>
+              <option>Fine Line</option>
+              <option>Japanese</option>
+              <option>Realism</option>
+              <option>Watercolor</option>
+              <option>Geometric</option>
+              <option>Tribal</option>
+              <option>Illustrative</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>State</label>
+            <select id="settingsLocation">
+              <option>Alabama</option><option>Alaska</option><option>Arizona</option>
+              <option>Arkansas</option><option>California</option><option>Colorado</option>
+              <option>Connecticut</option><option>Delaware</option><option>Florida</option>
+              <option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+              <option>Illinois</option><option>Indiana</option><option>Iowa</option>
+              <option>Kansas</option><option>Kentucky</option><option>Louisiana</option>
+              <option>Maine</option><option>Maryland</option><option>Massachusetts</option>
+              <option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+              <option>Missouri</option><option>Montana</option><option>Nebraska</option>
+              <option>Nevada</option><option>New Hampshire</option><option>New Jersey</option>
+              <option>New Mexico</option><option>New York</option><option>North Carolina</option>
+              <option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+              <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option>
+              <option>South Carolina</option><option>South Dakota</option><option>Tennessee</option>
+              <option>Texas</option><option>Utah</option><option>Vermont</option>
+              <option>Virginia</option><option>Washington</option><option>West Virginia</option>
+              <option>Wisconsin</option><option>Wyoming</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Bio</label>
+            <textarea id="settingsBio" rows="4" placeholder="Tell clients about your style and experience..."></textarea>
+          </div>
+
+          <p class="form-error" id="settingsError"></p>
+          <p class="form-success" id="settingsSuccess"></p>
+
+          <button type="submit" class="primary form-submit">Save Changes</button>
+        </form>
+      </div>
+
+      <!-- Danger zone -->
+      <div class="dash-card dash-danger-card" style="margin-top:24px;">
+        <h2 class="dash-card-title" style="color:#e11d2e;">Danger Zone</h2>
+        <p style="color:#aaa; margin: 12px 0;">Once you delete your account, there's no going back.</p>
+        <button class="dash-delete-btn">Delete Account</button>
+        <!-- TODO: Wire to Firebase Auth delete + Firestore cleanup -->
+      </div>
+    </div>
+
+  </main>
+
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // ── Auth guard: redirect to login if not signed in ──
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = 'artist-login.html';
+        return;
+      }
+
+      // Load user data from Firestore
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (!userDoc.exists() || userDoc.data().role !== 'artist') {
+        await signOut(auth);
+        window.location.href = 'artist-login.html';
+        return;
+      }
+
+      const data = userDoc.data();
+
+      // Populate UI with real data
+      document.getElementById('welcomeName').textContent  = `Welcome back, ${data.name} 👋`;
+      document.getElementById('dashName').textContent     = data.name;
+      document.getElementById('dashStyle').textContent    = `🖤 ${data.style}`;
+      document.getElementById('dashLocation').textContent = `📍 ${data.location}`;
+      document.getElementById('dashPlan').textContent     = data.plan === 'pro' ? '⚡ Pro Member' : '🔘 Standard Account';
+
+      // Pre-fill settings form
+      document.getElementById('settingsName').value = data.name     || '';
+      document.getElementById('settingsBio').value  = data.bio      || '';
+      const styleSelect    = document.getElementById('settingsStyle');
+      const locationSelect = document.getElementById('settingsLocation');
+      for (let opt of styleSelect.options)    if (opt.value === data.style)    opt.selected = true;
+      for (let opt of locationSelect.options) if (opt.value === data.location) opt.selected = true;
+
+      // Pro vs standard UI toggles
+      const isPro = data.plan === 'pro';
+      const isOG   = data.og === true;
+      document.getElementById('proBadgeHeader').style.display   = isPro ? 'inline-flex' : 'none';
+      document.getElementById('proUpgradeBanner').style.display = isPro ? 'none' : 'flex';
+      document.getElementById('ogBadgeHeader').style.display    = isOG  ? 'inline-flex' : 'none';
+
+      // Show OG welcome banner if redirected from registration
+      if (new URLSearchParams(window.location.search).get('og') === '1') {
+        document.getElementById('ogWelcomeBanner').style.display = 'flex';
+        // Clean URL without reload
+        history.replaceState({}, '', 'artist-dashboard.html');
+      }
+
+      // Pro gate for bookings and messages
+      document.getElementById('bookingsProGate').style.display  = isPro ? 'none' : 'flex';
+      document.getElementById('bookingsContent').style.display  = isPro ? 'block' : 'none';
+      document.getElementById('messagesProGate').style.display  = isPro ? 'none' : 'flex';
+      document.getElementById('messagesContent').style.display  = isPro ? 'block' : 'none';
+    });
+
+    // ── Tab navigation ──
+    const navItems = document.querySelectorAll('.dash-nav-item');
+    const tabs     = document.querySelectorAll('.dash-tab');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = item.dataset.tab;
+
+        navItems.forEach(n => n.classList.remove('active'));
+        tabs.forEach(t => t.classList.remove('active'));
+
+        item.classList.add('active');
+        document.getElementById(`tab-${target}`).classList.add('active');
+
+        // Close sidebar on mobile
+        document.getElementById('sidebar').classList.remove('open');
+      });
+    });
+
+    // Card "Edit →" links that switch tabs
+    document.querySelectorAll('.dash-card-link[data-goto]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = link.dataset.goto;
+        navItems.forEach(n => n.classList.remove('active'));
+        tabs.forEach(t => t.classList.remove('active'));
+        document.querySelector(`[data-tab="${target}"]`).classList.add('active');
+        document.getElementById(`tab-${target}`).classList.add('active');
+      });
+    });
+
+    // ── Mobile sidebar toggle ──
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    // ── Logout ──
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'index.html';
+    });
+
+    // ── Settings form save ──
+    document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorEl   = document.getElementById('settingsError');
+      const successEl = document.getElementById('settingsSuccess');
+      errorEl.textContent   = '';
+      successEl.textContent = '';
+
+      const user = auth.currentUser;
+      if (!user) return;
+
+      try {
+        await updateDoc(doc(db, 'users', user.uid), {
+          name:     document.getElementById('settingsName').value.trim(),
+          style:    document.getElementById('settingsStyle').value,
+          location: document.getElementById('settingsLocation').value,
+          bio:      document.getElementById('settingsBio').value.trim(),
+        });
+        successEl.textContent = 'Changes saved successfully!';
+        // Update welcome name live
+        document.getElementById('welcomeName').textContent =
+          `Welcome back, ${document.getElementById('settingsName').value.trim()} 👋`;
+      } catch (err) {
+        errorEl.textContent = 'Could not save changes. Please try again.';
+        console.error(err);
+      }
+    });
+
+    // ── Load bookings (artist view) ──
+    async function loadBookings(artistUid) {
+      const { collection, query, where, orderBy, onSnapshot, doc, updateDoc } =
+        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+      const q = query(
+        collection(db, 'bookings'),
+        where('artistUid', '==', artistUid),
+        orderBy('createdAt', 'desc')
+      );
+
+      onSnapshot(q, (snapshot) => {
+        const listEl  = document.getElementById('bookingsList');
+        const emptyEl = document.getElementById('bookingsEmpty');
+        listEl.innerHTML = '';
+
+        if (snapshot.empty) {
+          emptyEl.style.display = 'block';
+          return;
+        }
+        emptyEl.style.display = 'none';
+
+        snapshot.forEach(docSnap => {
+          const b   = docSnap.data();
+          const bid = docSnap.id;
+          const statusColors = {
+            pending:   '#f5a623',
+            confirmed: '#22c55e',
+            declined:  '#e11d2e'
+          };
+          const card = document.createElement('div');
+          card.className = 'booking-card-item';
+          card.innerHTML = `
+            <div class="booking-card-top">
+              <div>
+                <p class="booking-card-name">${b.canvasName}</p>
+                <p class="booking-card-detail">📅 ${b.date} at ${b.time}</p>
+                <p class="booking-card-detail">📐 ${b.size} · ${b.placement || 'Placement TBD'}</p>
+                <p class="booking-card-idea">${b.idea}</p>
+              </div>
+              <span class="booking-status-badge" style="background:${statusColors[b.status] || '#555'}">
+                ${b.status.charAt(0).toUpperCase() + b.status.slice(1)}
+              </span>
+            </div>
+            ${b.status === 'pending' ? `
+            <div class="booking-card-actions">
+              <button class="primary booking-confirm-btn" data-id="${bid}">✔ Confirm</button>
+              <button class="secondary booking-decline-btn" data-id="${bid}">✖ Decline</button>
+            </div>` : ''}
+          `;
+          listEl.appendChild(card);
+        });
+
+        // Attach confirm/decline handlers
+        listEl.querySelectorAll('.booking-confirm-btn').forEach(btn => {
+          btn.addEventListener('click', () => updateBookingStatus(btn.dataset.id, 'confirmed'));
+        });
+        listEl.querySelectorAll('.booking-decline-btn').forEach(btn => {
+          btn.addEventListener('click', () => updateBookingStatus(btn.dataset.id, 'declined'));
+        });
+      });
+    }
+
+    async function updateBookingStatus(bookingId, status) {
+      const { doc, updateDoc } =
+        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+      await updateDoc(doc(db, 'bookings', bookingId), { status });
+    }
+  </script>
+
+</body>
+</html>

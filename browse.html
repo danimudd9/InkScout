@@ -1,161 +1,358 @@
-
-<!-- ===================== browse.html (Artist Search Page) ===================== -->
+<!-- ===================== browse.html ===================== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Browse Artists - InkScout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- top -->
-
-<header class="nav">
-  <div class="logo">
-    <img src="assets/logo.png" class="logo-img">
-    <span>InkScout</span>
-  </div>
-  <nav>
-    <a href="index.html">Home</a>
-    <!-- <a href="#">Top Artists</a> -->
-    <a href="#">Login</a>
-  </nav>
-</header>
-
-
-
-<!-- Search -->
-
-<section class="browse-header">
-  <h1>Browse Artists</h1>
-  <p>Find the right artist by style, location, or name.</p>
-</section>
-
-<section class="search-bar">
-   <select>
-    <option>Style</option>
-    <option>Black & Grey</option>
-    <option>Neo Traditional</option>
-    <option>Fine line</option>
-    <option>Japanese</option>
-  </select>
-  <input type="text" placeholder="Artist Name (e.g. Jane Doe)">
-  <select>
-    <option>Location</option>
-    <option>Alabama</option>
-    <option>Alaska</option>
-    <option>Arizona</option>
-    <option>Arkansas</option>
-    <option>California</option>
-    <option>Colorado</option>
-    <option>Connecticut</option>
-    <option>Delaware</option>
-    <option>Florida</option>
-    <option>Geogia</option>
-    <option>Hawaii</option>
-    <option>Idaho</option>
-    <option>Illinois</option>
-    <option>Indiana</option>
-    <option>Iowa</option>
-    <option>Kansas</option>
-    <option>Kentucky</option>
-    <option>Louisiana</option>
-    <option>Maine</option>
-    <option>Maryland</option>
-    <option>Massachusetts</option>
-    <option>Michigan</option>
-    <option>Minnesota</option>
-    <option>Mississippi</option>
-    <option>Missouri</option>
-    <option>Montana</option>
-    <option>Nebraska</option>
-    <option>Nevada</option>
-    <option>New Hampshire</option>
-    <option>New Jersey</option>
-    <option>New Mexico</option>
-    <option>New York</option>
-    <option>North Carolina</option>
-    <option>North Dakota</option>
-    <option>Ohio</option>
-    <option>Oklahoma</option>
-    <option>Oregon</option>
-    <option>Pennsylvania</option>
-    <option>Rhode Island</option>
-    <option>South Carolina</option>
-    <option>South Dakota</option>
-    <option>Tennessee</option>
-    <option>Texas</option>
-    <option>Utah</option>
-    <option>Vermont</option>
-    <option>Virginia</option>
-    <option>Washington</option>
-    <option>West Virginia</option>
-    <option>Wisconsin</option>
-    <option>Wyoming</option>
-
-
-
-
-  </select>
-  <button class="primary">Search</button>
-</section>
-
-<!-- artist styles carousel -->
-
-<section class="card-section fade-up">
-  <h2 class="section-title">Featured Styles</h2>
-
-  <div class="carousel">
-    <button class="carousel-btn left" id="leftBtn">‹</button>
-
-    <div class="card-container" id="carouselTrack">
-
-      <div class="card">
-        <img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Black & Grey">
-        <div class="card-body">
-          <h3>Black & Grey</h3>
-          <p>Clean shading and realism.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="https://tattoolist.co/wp-content/uploads/2020/03/Cat-tattoo-819x1024.jpg" alt="Neo Traditional">
-        <div class="card-body">
-          <h3>Neo Traditional</h3>
-          <p>Bold lines, vibrant color.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Fine Line">
-        <div class="card-body">
-          <h3>Fine Line</h3>
-          <p>Minimal and detailed work.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="https://i.pinimg.com/originals/ef/57/26/ef5726a82b982deed8641f45bad8fe52.webp" alt="Japanese">
-        <div class="card-body">
-          <h3>Japanese</h3>
-          <p>Traditional flowing designs.</p>
-        </div>
-      </div>
-
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>InkScout</span>
     </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="prelogin.html">Login</a>
+    </nav>
+  </header>
 
-    <button class="carousel-btn right" id="rightBtn">›</button>
+  <!-- HEADER -->
+  <section class="browse-header fade-up">
+    <h1>Browse Artists</h1>
+    <p>Find the right artist by style, location, or name.</p>
+  </section>
+
+  <!-- SEARCH BAR -->
+  <section class="search-bar">
+    <select id="filterStyle">
+      <option value="">All Styles</option>
+      <option>Black & Grey</option>
+      <option>Neo Traditional</option>
+      <option>Fine Line</option>
+      <option>Japanese</option>
+      <option>Realism</option>
+      <option>Watercolor</option>
+      <option>Geometric</option>
+      <option>Tribal</option>
+      <option>Illustrative</option>
+    </select>
+
+    <input type="text" id="filterName" placeholder="Search by name...">
+
+    <select id="filterLocation">
+      <option value="">All States</option>
+      <option>Alabama</option><option>Alaska</option><option>Arizona</option>
+      <option>Arkansas</option><option>California</option><option>Colorado</option>
+      <option>Connecticut</option><option>Delaware</option><option>Florida</option>
+      <option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+      <option>Illinois</option><option>Indiana</option><option>Iowa</option>
+      <option>Kansas</option><option>Kentucky</option><option>Louisiana</option>
+      <option>Maine</option><option>Maryland</option><option>Massachusetts</option>
+      <option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+      <option>Missouri</option><option>Montana</option><option>Nebraska</option>
+      <option>Nevada</option><option>New Hampshire</option><option>New Jersey</option>
+      <option>New Mexico</option><option>New York</option><option>North Carolina</option>
+      <option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+      <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option>
+      <option>South Carolina</option><option>South Dakota</option><option>Tennessee</option>
+      <option>Texas</option><option>Utah</option><option>Vermont</option>
+      <option>Virginia</option><option>Washington</option><option>West Virginia</option>
+      <option>Wisconsin</option><option>Wyoming</option>
+    </select>
+
+    <select id="filterPlan">
+      <option value="">All Artists</option>
+      <option value="pro">⚡ Pro Only</option>
+      <option value="standard">Standard</option>
+    </select>
+  </section>
+
+  <!-- RESULTS COUNT -->
+  <div class="browse-results-bar">
+    <p id="resultsCount" class="browse-results-count"></p>
+    <button class="browse-clear-btn" id="clearBtn" style="display:none">✕ Clear filters</button>
   </div>
-</section>
 
+  <!-- ARTIST GRID -->
+  <section class="artist-grid" id="artistGrid">
+    <!-- Populated by JS -->
+  </section>
+
+  <!-- NO RESULTS -->
+  <div class="browse-no-results" id="noResults" style="display:none">
+    <p>😕 No artists match your search.</p>
+    <button class="secondary" id="clearBtn2">Clear filters</button>
+  </div>
+
+  <!-- FEATURED STYLES CAROUSEL -->
+  <section class="card-section fade-up">
+    <h2 class="section-title">Browse by Style</h2>
+    <div class="carousel">
+      <button class="carousel-btn left" id="leftBtn">‹</button>
+      <div class="card-container" id="carouselTrack">
+        <div class="card" data-style="Black & Grey">
+          <img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Black & Grey">
+          <div class="card-body"><h3>Black & Grey</h3><p>Clean shading and realism.</p></div>
+        </div>
+        <div class="card" data-style="Neo Traditional">
+          <img src="https://tattoolist.co/wp-content/uploads/2020/03/Cat-tattoo-819x1024.jpg" alt="Neo Traditional">
+          <div class="card-body"><h3>Neo Traditional</h3><p>Bold lines, vibrant color.</p></div>
+        </div>
+        <div class="card" data-style="Fine Line">
+          <img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Fine Line">
+          <div class="card-body"><h3>Fine Line</h3><p>Minimal and detailed work.</p></div>
+        </div>
+        <div class="card" data-style="Japanese">
+          <img src="https://i.pinimg.com/originals/ef/57/26/ef5726a82b982deed8641f45bad8fe52.webp" alt="Japanese">
+          <div class="card-body"><h3>Japanese</h3><p>Traditional flowing designs.</p></div>
+        </div>
+        <div class="card" data-style="Realism">
+          <img src="https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?w=400&auto=format&fit=crop" alt="Realism">
+          <div class="card-body"><h3>Realism</h3><p>Hyper-realistic portraits.</p></div>
+        </div>
+        <div class="card" data-style="Watercolor">
+          <img src="https://images.unsplash.com/photo-1590246814883-57c511e4f57e?w=400&auto=format&fit=crop" alt="Watercolor">
+          <div class="card-body"><h3>Watercolor</h3><p>Fluid, painterly designs.</p></div>
+        </div>
+      </div>
+      <button class="carousel-btn right" id="rightBtn">›</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer fade-in">
+    <p>© 2026 InkScout. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    import { db } from './firebase.js';
+    import {
+      collection, getDocs, query, orderBy
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // ── Sample artists (shown when no Firestore data exists) ──
+    const SAMPLE_ARTISTS = [
+      {
+        uid: 'sample-1',
+        name: 'Ava Black',
+        style: 'Black & Grey',
+        location: 'Texas',
+        plan: 'pro',
+        rating: 4.9,
+        reviews: 128,
+        photo: 'https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp'
+      },
+      {
+        uid: 'sample-2',
+        name: 'Rick Valor',
+        style: 'Neo Traditional',
+        location: 'California',
+        plan: 'pro',
+        rating: 4.8,
+        reviews: 94,
+        photo: 'https://tattoolist.co/wp-content/uploads/2020/03/Cat-tattoo-819x1024.jpg'
+      },
+      {
+        uid: 'sample-3',
+        name: 'Maya Ink',
+        style: 'Fine Line',
+        location: 'New York',
+        plan: 'pro',
+        rating: 5.0,
+        reviews: 211,
+        photo: 'https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg'
+      },
+      {
+        uid: 'sample-4',
+        name: 'Kenji Mori',
+        style: 'Japanese',
+        location: 'California',
+        plan: 'standard',
+        rating: 4.7,
+        reviews: 63,
+        photo: 'https://i.pinimg.com/originals/ef/57/26/ef5726a82b982deed8641f45bad8fe52.webp'
+      },
+      {
+        uid: 'sample-5',
+        name: 'Sara Voss',
+        style: 'Realism',
+        location: 'Florida',
+        plan: 'standard',
+        rating: 4.6,
+        reviews: 47,
+        photo: 'https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?w=400&auto=format&fit=crop'
+      },
+      {
+        uid: 'sample-6',
+        name: 'Leo Cruz',
+        style: 'Watercolor',
+        location: 'Texas',
+        plan: 'pro',
+        rating: 4.9,
+        reviews: 88,
+        photo: 'https://images.unsplash.com/photo-1590246814883-57c511e4f57e?w=400&auto=format&fit=crop'
+      }
+    ];
+
+    let allArtists = [];
+
+    // ── Load artists: Firestore first, fall back to sample data ──
+    async function loadArtists() {
+      try {
+        const q = query(collection(db, 'users'), orderBy('plan', 'desc'));
+        const snapshot = await getDocs(q);
+        const firestoreArtists = [];
+
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          if (d.role === 'artist') {
+            firestoreArtists.push({
+              uid:      d.uid,
+              name:     d.name,
+              style:    d.style,
+              location: d.location,
+              plan:     d.plan,
+              rating:   d.rating   || null,
+              reviews:  d.reviews  || 0,
+              photo:    d.photo    || 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=400&auto=format&fit=crop'
+            });
+          }
+        });
+
+        // Use Firestore artists if any exist, otherwise use sample data
+        allArtists = firestoreArtists.length > 0 ? firestoreArtists : SAMPLE_ARTISTS;
+
+        // Pro artists first
+        allArtists.sort((a, b) => {
+          if (a.plan === 'pro' && b.plan !== 'pro') return -1;
+          if (a.plan !== 'pro' && b.plan === 'pro') return 1;
+          return 0;
+        });
+
+      } catch (err) {
+        // Firestore unavailable — use sample data
+        allArtists = SAMPLE_ARTISTS;
+        console.warn('Using sample data:', err.message);
+      }
+
+      renderArtists(allArtists);
+    }
+
+    // ── Render artist cards ──
+    function renderArtists(artists) {
+      const grid       = document.getElementById('artistGrid');
+      const noResults  = document.getElementById('noResults');
+      const countEl    = document.getElementById('resultsCount');
+
+      grid.innerHTML = '';
+
+      if (artists.length === 0) {
+        noResults.style.display = 'flex';
+        countEl.textContent = '';
+        return;
+      }
+
+      noResults.style.display = 'none';
+      countEl.textContent = `${artists.length} artist${artists.length !== 1 ? 's' : ''} found`;
+
+      artists.forEach(artist => {
+        const card = document.createElement('div');
+        card.className = 'artist-card';
+        card.innerHTML = `
+          <div class="artist-img">
+            <img src="${artist.photo}" alt="${artist.name}" loading="lazy">
+            ${artist.plan === 'pro' ? '<span class="artist-card-pro-badge">⚡ PRO</span>' : ''}
+          </div>
+          <div class="artist-info">
+            <h3>${artist.name}</h3>
+            <p>${artist.style}</p>
+            <p style="color:#888; font-size:0.82rem; margin-top:2px;">📍 ${artist.location}</p>
+            <span class="rating">⭐ ${artist.rating ?? 'New'}${artist.reviews > 0 ? ` (${artist.reviews})` : ''}</span>
+            <a href="profile.html" class="view-btn">View Profile</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // ── Live filtering ──
+    function applyFilters() {
+      const style    = document.getElementById('filterStyle').value.toLowerCase();
+      const name     = document.getElementById('filterName').value.toLowerCase().trim();
+      const location = document.getElementById('filterLocation').value.toLowerCase();
+      const plan     = document.getElementById('filterPlan').value.toLowerCase();
+
+      const hasFilters = style || name || location || plan;
+      document.getElementById('clearBtn').style.display = hasFilters ? 'inline-block' : 'none';
+
+      const filtered = allArtists.filter(a => {
+        const matchStyle    = !style    || a.style.toLowerCase().includes(style);
+        const matchName     = !name     || a.name.toLowerCase().includes(name);
+        const matchLocation = !location || a.location.toLowerCase().includes(location);
+        const matchPlan     = !plan     || a.plan.toLowerCase() === plan;
+        return matchStyle && matchName && matchLocation && matchPlan;
+      });
+
+      renderArtists(filtered);
+    }
+
+    // Attach live listeners
+    document.getElementById('filterStyle').addEventListener('change', applyFilters);
+    document.getElementById('filterName').addEventListener('input',  applyFilters);
+    document.getElementById('filterLocation').addEventListener('change', applyFilters);
+    document.getElementById('filterPlan').addEventListener('change', applyFilters);
+
+    // Clear buttons
+    function clearFilters() {
+      document.getElementById('filterStyle').value    = '';
+      document.getElementById('filterName').value     = '';
+      document.getElementById('filterLocation').value = '';
+      document.getElementById('filterPlan').value     = '';
+      document.getElementById('clearBtn').style.display = 'none';
+      renderArtists(allArtists);
+    }
+
+    document.getElementById('clearBtn').addEventListener('click',  clearFilters);
+    document.getElementById('clearBtn2').addEventListener('click', clearFilters);
+
+    // Carousel style cards filter on click
+    document.querySelectorAll('.card[data-style]').forEach(card => {
+      card.addEventListener('click', () => {
+        const style = card.dataset.style;
+        document.getElementById('filterStyle').value = style;
+        applyFilters();
+        document.getElementById('artistGrid').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // ── Carousel scroll ──
+    const track    = document.getElementById('carouselTrack');
+    const leftBtn  = document.getElementById('leftBtn');
+    const rightBtn = document.getElementById('rightBtn');
+    let scrollInterval;
+
+    function startScroll(dir) {
+      clearInterval(scrollInterval);
+      scrollInterval = setInterval(() => { track.scrollLeft += dir * 10; }, 10);
+    }
+    function stopScroll() { clearInterval(scrollInterval); }
+
+    rightBtn.addEventListener('mouseenter', () => startScroll(1));
+    leftBtn.addEventListener('mouseenter',  () => startScroll(-1));
+    rightBtn.addEventListener('mouseleave', stopScroll);
+    leftBtn.addEventListener('mouseleave',  stopScroll);
+
+    // ── Init ──
+    loadArtists();
+  </script>
 
 </body>
 </html>
-
-

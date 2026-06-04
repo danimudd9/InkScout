@@ -5,14 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - InkScout</title>
+  <!-- FIXED: Consolidated font imports -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap" rel="stylesheet">
-
-  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Main CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,20 +19,16 @@
       <img src="assets/logo.png" class="logo-img">
       <span>InkScout</span>
     </div>
-
     <nav>
       <a href="index.html">Home</a>
-      <a href="browse.html">Explore</a>
-      <a href="register.html">Sign Up</a>
+      <a href="preregister.html">Sign Up</a>
     </nav>
   </header>
 
   <!-- HERO -->
   <section class="login-hero">
     <h1>Welcome Back</h1>
-    <p>
-      Choose how you'd like to log into InkScout.
-    </p>
+    <p>Choose how you'd like to log into InkScout.</p>
   </section>
 
   <!-- LOGIN OPTIONS -->
@@ -44,51 +36,32 @@
 
     <!-- ARTIST LOGIN -->
     <div class="login-card">
-
-      <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?q=80&w=1200&auto=format&fit=crop"
-           alt="Artist Login">
-
+      <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?q=80&w=1200&auto=format&fit=crop" alt="Artist Login">
       <div class="login-content">
-
         <h2>🎨 Artist Login</h2>
-
-        <p>
-          Access your portfolio, bookings,
-          client messages, and profile analytics.
-        </p>
-
-        <a href="#" class="primary login-btn">
-          Login as Artist
-        </a>
-
+        <p>Access your portfolio, bookings, client messages, and profile analytics.</p>
+        <!-- Will link to artist-login.html once built -->
+        <a href="artist-login.html" class="primary login-btn">Login as Artist</a>
       </div>
-
     </div>
 
     <!-- CANVAS LOGIN -->
     <div class="login-card">
-
-      <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop"
-           alt="Canvas Login">
-
+      <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop" alt="Canvas Login">
       <div class="login-content">
-
         <h2>🖋 Canvas Login</h2>
-
-        <p>
-          Continue exploring artists,
-          managing bookings, and saving inspiration.
-        </p>
-
-        <a href="#" class="primary login-btn">
-          Login as Canvas
-        </a>
-
+        <p>Continue exploring artists, managing bookings, and saving inspiration.</p>
+        <!-- Will link to canvas-login.html once built -->
+        <a href="canvas-login.html" class="primary login-btn">Login as Canvas</a>
       </div>
-
     </div>
 
   </section>
+
+  <!-- FOOTER -->
+  <footer class="footer fade-in">
+    <p>© 2026 InkScout. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>

@@ -1,0 +1,258 @@
+<!-- ===================== booking.html ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Consultation - InkScout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="nav fade-down">
+    <div class="logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>InkScout</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="browse.html">Browse</a>
+      <a href="prelogin.html" id="navLogin">Login</a>
+    </nav>
+  </header>
+
+  <section class="form-page fade-up">
+    <div class="form-card booking-card">
+
+      <!-- Artist summary (populated by JS) -->
+      <div class="booking-artist-header" id="bookingArtistHeader">
+        <img class="booking-artist-avatar" id="bookingAvatar"
+          src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=120&auto=format&fit=crop"
+          alt="Artist">
+        <div>
+          <p class="booking-artist-name" id="bookingArtistName">Loading...</p>
+          <p class="booking-artist-sub" id="bookingArtistSub">—</p>
+        </div>
+      </div>
+
+      <div class="form-header" style="margin-top:24px;">
+        <span class="form-icon">📅</span>
+        <h1>Request a Consultation</h1>
+        <p>Fill out the form and the artist will confirm your date and time.</p>
+      </div>
+
+      <!-- Not logged in gate -->
+      <div id="loginGate" style="display:none; text-align:center; padding: 24px 0;">
+        <p style="color:#aaa; margin-bottom:20px;">You need a Canvas account to book a consultation.</p>
+        <a href="canvas-register.html" class="primary form-submit"
+           style="display:inline-block; text-decoration:none; margin-bottom:12px;">
+          Create Canvas Account
+        </a>
+        <p class="form-footer-text">
+          Already have one? <a href="canvas-login.html">Log in</a>
+        </p>
+      </div>
+
+      <!-- Booking form -->
+      <form class="register-form" id="bookingForm">
+
+        <div class="form-group">
+          <label for="bookDate">Preferred Date</label>
+          <input type="date" id="bookDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="bookTime">Preferred Time</label>
+          <input type="time" id="bookTime" required>
+        </div>
+
+        <div class="form-group">
+          <label for="bookIdea">Tattoo Idea</label>
+          <textarea id="bookIdea" rows="4"
+            placeholder="Describe your tattoo idea — style, size, placement, references, etc."
+            required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="bookSize">Approximate Size</label>
+          <select id="bookSize" required>
+            <option value="" disabled selected>Select a size</option>
+            <option>Tiny (under 2")</option>
+            <option>Small (2–4")</option>
+            <option>Medium (4–6")</option>
+            <option>Large (6–10")</option>
+            <option>Extra Large / Sleeve</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="bookPlacement">Placement</label>
+          <input type="text" id="bookPlacement" placeholder="e.g. Inner forearm, left shoulder">
+        </div>
+
+        <div class="form-group">
+          <label for="bookNotes">Additional Notes <span style="color:#555">(optional)</span></label>
+          <textarea id="bookNotes" rows="2"
+            placeholder="Anything else the artist should know?"></textarea>
+        </div>
+
+        <p class="form-error"   id="bookingError"></p>
+        <p class="form-success" id="bookingSuccess"></p>
+
+        <button type="submit" class="primary form-submit" id="bookSubmitBtn">
+          Send Booking Request
+        </button>
+
+      </form>
+
+    </div>
+  </section>
+
+  <footer class="footer fade-in">
+    <p>© 2026 InkScout. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      collection, doc, addDoc, getDoc, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const params    = new URLSearchParams(window.location.search);
+    const artistUid = params.get('uid');
+
+    let currentUser     = null;
+    let currentUserData = null;
+    let artistData      = null;
+
+    // Load artist info
+    if (artistUid) {
+      getDoc(doc(db, 'users', artistUid)).then(snap => {
+        if (snap.exists()) {
+          artistData = snap.data();
+          document.getElementById('bookingArtistName').textContent = artistData.name;
+          document.getElementById('bookingArtistSub').textContent  =
+            `${artistData.style} · ${artistData.location}`;
+          if (artistData.photo) {
+            document.getElementById('bookingAvatar').src = artistData.photo;
+          }
+        }
+      });
+    }
+
+    // Set min date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('bookDate').min = today;
+
+    // Auth state
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        document.getElementById('bookingForm').style.display = 'none';
+        document.getElementById('loginGate').style.display   = 'block';
+        document.getElementById('navLogin').href = 'canvas-login.html';
+        return;
+      }
+
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (!userDoc.exists()) return;
+
+      currentUser     = user;
+      currentUserData = userDoc.data();
+
+      // Artists can't book themselves
+      if (currentUserData.role === 'artist') {
+        document.getElementById('bookingForm').style.display  = 'none';
+        document.getElementById('bookingError').textContent   =
+          'Artist accounts cannot make bookings. Log in as a Canvas to book.';
+        return;
+      }
+
+      document.getElementById('navLogin').textContent = currentUserData.name;
+      document.getElementById('navLogin').href        = 'canvas-dashboard.html';
+    });
+
+    // Submit booking
+    document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const errorEl   = document.getElementById('bookingError');
+      const successEl = document.getElementById('bookingSuccess');
+      const submitBtn = document.getElementById('bookSubmitBtn');
+      errorEl.textContent   = '';
+      successEl.textContent = '';
+
+      if (!currentUser) {
+        errorEl.textContent = 'Please log in to send a booking request.';
+        return;
+      }
+
+      if (!artistUid) {
+        errorEl.textContent = 'No artist specified. Please go back and try again.';
+        return;
+      }
+
+      const date      = document.getElementById('bookDate').value;
+      const time      = document.getElementById('bookTime').value;
+      const idea      = document.getElementById('bookIdea').value.trim();
+      const size      = document.getElementById('bookSize').value;
+      const placement = document.getElementById('bookPlacement').value.trim();
+      const notes     = document.getElementById('bookNotes').value.trim();
+
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled    = true;
+
+      try {
+        // Save booking to Firestore
+        await addDoc(collection(db, 'bookings'), {
+          artistUid:    artistUid,
+          artistName:   artistData?.name   || '',
+          canvasUid:    currentUser.uid,
+          canvasName:   currentUserData.name,
+          canvasEmail:  currentUser.email,
+          date:         date,
+          time:         time,
+          idea:         idea,
+          size:         size,
+          placement:    placement,
+          notes:        notes,
+          status:       'pending',   // pending | confirmed | declined
+          type:         'consultation',
+          createdAt:    serverTimestamp()
+        });
+
+        // In-app notification for artist
+        await addDoc(collection(db, 'notifications'), {
+          userId:    artistUid,
+          type:      'booking_request',
+          message:   `${currentUserData.name} requested a consultation on ${date} at ${time}.`,
+          read:      false,
+          createdAt: serverTimestamp()
+        });
+
+        // Show success
+        submitBtn.textContent = 'Request Sent!';
+        successEl.textContent =
+          '✅ Your consultation request has been sent! The artist will confirm your date and time.';
+
+        document.getElementById('bookingForm').reset();
+
+        // Redirect to canvas dashboard after 3s
+        setTimeout(() => {
+          window.location.href = 'canvas-dashboard.html';
+        }, 3000);
+
+      } catch (err) {
+        submitBtn.textContent = 'Send Booking Request';
+        submitBtn.disabled    = false;
+        errorEl.textContent   = 'Something went wrong. Please try again.';
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html>

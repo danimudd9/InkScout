@@ -5,29 +5,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Join InkScout</title>
+  <!-- FIXED: Consolidated font imports -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap" rel="stylesheet">
-
-  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- NAVBAR -->
   <header class="nav">
     <div class="logo">
       <img src="assets/logo.png" class="logo-img">
       <span>InkScout</span>
     </div>
-
     <nav>
       <a href="index.html">Home</a>
       <a href="browse.html">Explore</a>
-      <a href="#">Login</a>
+      <!-- FIXED: Login links to prelogin.html instead of # -->
+      <a href="prelogin.html">Login</a>
     </nav>
   </header>
 
@@ -47,54 +43,41 @@
     <!-- ARTIST -->
     <div class="register-card">
       <img src="https://media.gq-magazine.co.uk/photos/64efb540271feab0f4bcdc0d/1:1/w_5062,h_5062,c_limit/1184219605" alt="Tattoo Artist">
-
       <div class="register-content">
         <h2>🎨 Register as an Artist</h2>
-
-        <p>
-          Showcase your portfolio, build your reputation,
-          and connect with clients looking for your style.
-        </p>
-
+        <p>Showcase your portfolio, build your reputation, and connect with clients looking for your style.</p>
         <ul>
           <li>✔ Build a public profile</li>
           <li>✔ Upload tattoo work</li>
           <li>✔ Accept bookings</li>
           <li>✔ Grow your audience</li>
         </ul>
-
-        <a href="#" class="primary register-btn">
-          Create Artist Account
-        </a>
+        <a href="artist-register.html" class="primary register-btn">Create Artist Account</a>
       </div>
     </div>
 
     <!-- CLIENT -->
     <div class="register-card">
       <img src="https://wondernumb.co.uk/cdn/shop/articles/Tattoo_Placement_and_Considerations_1.jpg?v=1690391996&width=1100" alt="Tattoo Client">
-
       <div class="register-content">
         <h2>🖋 Register as a Canvas</h2>
-
-        <p>
-          Discover artists, save inspiration,
-          and book your next tattoo with confidence.
-        </p>
-
+        <p>Discover artists, save inspiration, and book your next tattoo with confidence.</p>
         <ul>
           <li>✔ Explore artists by style</li>
           <li>✔ Save favorite portfolios</li>
           <li>✔ Message artists directly</li>
           <li>✔ Book appointments easily</li>
         </ul>
-
-        <a href="#" class="primary register-btn">
-          Create Canvas Account
-        </a>
+        <a href="canvas-register.html" class="primary register-btn">Create Canvas Account</a>
       </div>
     </div>
 
   </section>
+
+  <!-- FOOTER -->
+  <footer class="footer fade-in">
+    <p>© 2026 InkScout. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>

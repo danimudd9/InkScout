@@ -1,0 +1,91 @@
+<!-- ===================== upgrade-success.html ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Pro - InkScout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="nav fade-down">
+    <div class="logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>InkScout</span>
+    </div>
+    <nav>
+      <a href="artist-dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <section class="form-page fade-up">
+    <div class="form-card" style="text-align:center;">
+
+      <div class="upgrade-success-icon">⚡</div>
+      <h1 style="font-size:2rem; margin-bottom:12px;">You're now a Pro!</h1>
+      <p style="color:#aaa; margin-bottom:32px; line-height:1.7;">
+        Welcome to InkScout Pro. Your badge is live, your search ranking is boosted,
+        and messaging &amp; bookings are now unlocked. Let's get you some clients.
+      </p>
+
+      <div class="upgrade-success-features">
+        <div class="upgrade-success-feature">
+          <span>⚡</span>
+          <p>Pro badge active</p>
+        </div>
+        <div class="upgrade-success-feature">
+          <span>🔍</span>
+          <p>Boosted in search</p>
+        </div>
+        <div class="upgrade-success-feature">
+          <span>💬</span>
+          <p>Messaging unlocked</p>
+        </div>
+        <div class="upgrade-success-feature">
+          <span>📅</span>
+          <p>Bookings unlocked</p>
+        </div>
+      </div>
+
+      <a href="artist-dashboard.html" class="primary form-submit"
+         style="display:block; text-align:center; text-decoration:none; margin-top:32px;">
+        Go to Dashboard
+      </a>
+
+    </div>
+  </section>
+
+  <footer class="footer fade-in">
+    <p>© 2026 InkScout. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // When user lands here after Stripe payment, upgrade their plan in Firestore
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = 'artist-login.html';
+        return;
+      }
+
+      try {
+        await updateDoc(doc(db, 'users', user.uid), {
+          plan: 'pro',
+          proSince: new Date().toISOString()
+        });
+        console.log('Plan upgraded to Pro in Firestore');
+      } catch (err) {
+        console.error('Could not update plan:', err);
+      }
+    });
+  </script>
+
+</body>
+</html>

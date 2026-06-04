@@ -1,0 +1,345 @@
+<!-- ===================== messages.html ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages - InkScout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+
+  <!-- SIDEBAR -->
+  <aside class="dash-sidebar" id="sidebar">
+    <div class="dash-logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>InkScout</span>
+    </div>
+    <nav class="dash-nav">
+      <a href="#" class="dash-nav-item" id="backToDash">
+        <span class="dash-nav-icon">←</span> Dashboard
+      </a>
+    </nav>
+    <div class="dash-sidebar-footer">
+      <button class="dash-logout-btn" id="logoutBtn">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="dash-main msg-main">
+
+    <!-- Mobile header -->
+    <header class="dash-mobile-header">
+      <button class="dash-menu-btn" id="menuBtn">☰</button>
+      <span class="dash-mobile-title">Messages</span>
+    </header>
+
+    <div class="msg-layout">
+
+      <!-- CONVERSATION LIST -->
+      <div class="msg-convo-panel" id="convoPanel">
+        <div class="msg-convo-header">
+          <h2>Messages</h2>
+        </div>
+        <div class="msg-convo-list" id="convoList">
+          <p class="dash-empty-state" id="convoEmpty">No conversations yet.</p>
+        </div>
+      </div>
+
+      <!-- MESSAGE THREAD -->
+      <div class="msg-thread-panel" id="threadPanel">
+
+        <!-- Empty state -->
+        <div class="msg-thread-empty" id="threadEmpty">
+          <span>💬</span>
+          <p>Select a conversation to start messaging.</p>
+        </div>
+
+        <!-- Active thread (hidden until convo selected) -->
+        <div class="msg-thread-active" id="threadActive" style="display:none;">
+
+          <!-- Thread header -->
+          <div class="msg-thread-header">
+            <img class="msg-thread-avatar" id="threadAvatar"
+              src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=80&auto=format&fit=crop"
+              alt="Artist">
+            <div>
+              <p class="msg-thread-name" id="threadName">—</p>
+              <p class="msg-thread-sub" id="threadSub">—</p>
+            </div>
+          </div>
+
+          <!-- Messages -->
+          <div class="msg-bubble-list" id="bubbleList"></div>
+
+          <!-- Pro gate for artists on standard plan -->
+          <div class="msg-pro-gate" id="msgProGate" style="display:none;">
+            <p>💬 Messaging is a <strong>Pro feature</strong>.</p>
+            <a href="upgrade.html" class="primary" style="margin-top:12px; display:inline-block; padding:10px 20px;">
+              Upgrade to Pro
+            </a>
+          </div>
+
+          <!-- Input -->
+          <div class="msg-input-row" id="msgInputRow">
+            <textarea
+              id="msgInput"
+              class="msg-input"
+              placeholder="Type a message..."
+              rows="1"
+              maxlength="1000"
+            ></textarea>
+            <button class="primary msg-send-btn" id="sendBtn">Send</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      collection, doc, getDoc, getDocs, addDoc,
+      query, where, orderBy, onSnapshot,
+      serverTimestamp, updateDoc
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    let currentUser     = null;
+    let currentUserData = null;
+    let activeConvoId   = null;
+    let unsubMessages   = null; // live listener cleanup
+
+    // ── Auth guard ──
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = 'prelogin.html';
+        return;
+      }
+
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (!userDoc.exists()) {
+        window.location.href = 'prelogin.html';
+        return;
+      }
+
+      currentUser     = user;
+      currentUserData = userDoc.data();
+
+      // Back to dashboard link
+      document.getElementById('backToDash').href =
+        currentUserData.role === 'artist' ? 'artist-dashboard.html' : 'canvas-dashboard.html';
+
+      loadConversations();
+    });
+
+    // ── Load conversations ──
+    async function loadConversations() {
+      const q = query(
+        collection(db, 'conversations'),
+        where('participants', 'array-contains', currentUser.uid),
+        orderBy('lastMessageAt', 'desc')
+      );
+
+      // Live listener for conversation list
+      onSnapshot(q, async (snapshot) => {
+        const listEl  = document.getElementById('convoList');
+        const emptyEl = document.getElementById('convoEmpty');
+
+        if (snapshot.empty) {
+          emptyEl.style.display = 'block';
+          return;
+        }
+
+        emptyEl.style.display = 'none';
+        listEl.innerHTML = '';
+
+        for (const docSnap of snapshot.docs) {
+          const convo = { id: docSnap.id, ...docSnap.data() };
+
+          // Get the other participant's name
+          const otherId   = convo.participants.find(p => p !== currentUser.uid);
+          const otherDoc  = await getDoc(doc(db, 'users', otherId));
+          const otherData = otherDoc.exists() ? otherDoc.data() : { name: 'Unknown', plan: 'standard' };
+
+          const item = document.createElement('div');
+          item.className = `msg-convo-item${convo.id === activeConvoId ? ' active' : ''}`;
+          item.dataset.convoId = convo.id;
+          item.dataset.otherId = otherId;
+
+          const unread = convo.unreadCount?.[currentUser.uid] > 0;
+
+          item.innerHTML = `
+            <img class="msg-convo-avatar"
+              src="${otherData.photo || 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=80&auto=format&fit=crop'}"
+              alt="${otherData.name}">
+            <div class="msg-convo-info">
+              <div class="msg-convo-name-row">
+                <span class="msg-convo-name">${otherData.name}</span>
+                ${unread ? '<span class="msg-unread-dot"></span>' : ''}
+              </div>
+              <span class="msg-convo-preview">${convo.lastMessage || '...'}</span>
+            </div>
+          `;
+
+          item.addEventListener('click', () =>
+            openConversation(convo.id, otherId, otherData)
+          );
+
+          listEl.appendChild(item);
+        }
+      });
+    }
+
+    // ── Open a conversation ──
+    async function openConversation(convoId, otherId, otherData) {
+      activeConvoId = convoId;
+
+      // Update UI
+      document.getElementById('threadEmpty').style.display  = 'none';
+      document.getElementById('threadActive').style.display = 'flex';
+      document.getElementById('threadName').textContent     = otherData.name;
+      document.getElementById('threadSub').textContent      =
+        otherData.style ? `${otherData.style} · ${otherData.location}` : 'Canvas';
+      document.getElementById('threadAvatar').src =
+        otherData.photo || 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=80&auto=format&fit=crop';
+
+      // Highlight active convo
+      document.querySelectorAll('.msg-convo-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.convoId === convoId);
+      });
+
+      // Pro gate: artists on standard plan can't send messages
+      const isArtist   = currentUserData.role === 'artist';
+      const isPro      = currentUserData.plan  === 'pro';
+      const gateEl     = document.getElementById('msgProGate');
+      const inputRowEl = document.getElementById('msgInputRow');
+
+      if (isArtist && !isPro) {
+        gateEl.style.display     = 'flex';
+        inputRowEl.style.display = 'none';
+      } else {
+        gateEl.style.display     = 'none';
+        inputRowEl.style.display = 'flex';
+      }
+
+      // Clear old listener
+      if (unsubMessages) unsubMessages();
+
+      // Mark as read
+      await updateDoc(doc(db, 'conversations', convoId), {
+        [`unreadCount.${currentUser.uid}`]: 0
+      });
+
+      // Live message listener
+      const msgQuery = query(
+        collection(db, 'conversations', convoId, 'messages'),
+        orderBy('createdAt', 'asc')
+      );
+
+      unsubMessages = onSnapshot(msgQuery, (snapshot) => {
+        const bubbleList = document.getElementById('bubbleList');
+        bubbleList.innerHTML = '';
+
+        snapshot.forEach(msgDoc => {
+          const msg     = msgDoc.data();
+          const isMine  = msg.senderId === currentUser.uid;
+          const bubble  = document.createElement('div');
+          bubble.className = `msg-bubble ${isMine ? 'msg-bubble--mine' : 'msg-bubble--theirs'}`;
+          bubble.innerHTML = `
+            <p>${escapeHtml(msg.text)}</p>
+            <span class="msg-bubble-time">${formatTime(msg.createdAt)}</span>
+          `;
+          bubbleList.appendChild(bubble);
+        });
+
+        // Scroll to bottom
+        bubbleList.scrollTop = bubbleList.scrollHeight;
+      });
+    }
+
+    // ── Send message ──
+    async function sendMessage() {
+      const input   = document.getElementById('msgInput');
+      const text    = input.value.trim();
+      if (!text || !activeConvoId) return;
+
+      input.value = '';
+      input.style.height = 'auto';
+
+      try {
+        // Add message to subcollection
+        await addDoc(collection(db, 'conversations', activeConvoId, 'messages'), {
+          text:      text,
+          senderId:  currentUser.uid,
+          createdAt: serverTimestamp()
+        });
+
+        // Update conversation metadata
+        const convoRef = doc(db, 'conversations', activeConvoId);
+        const convoDoc = await getDoc(convoRef);
+        const otherId  = convoDoc.data().participants.find(p => p !== currentUser.uid);
+
+        await updateDoc(convoRef, {
+          lastMessage:   text,
+          lastMessageAt: serverTimestamp(),
+          [`unreadCount.${otherId}`]: (convoDoc.data().unreadCount?.[otherId] || 0) + 1
+        });
+
+      } catch (err) {
+        console.error('Send failed:', err);
+      }
+    }
+
+    // Send on button click
+    document.getElementById('sendBtn').addEventListener('click', sendMessage);
+
+    // Send on Enter (Shift+Enter for newline)
+    document.getElementById('msgInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Auto-resize textarea
+    document.getElementById('msgInput').addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+
+    // Mobile sidebar
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'index.html';
+    });
+
+    // ── Helpers ──
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatTime(timestamp) {
+      if (!timestamp) return '';
+      const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+  </script>
+
+</body>
+</html>

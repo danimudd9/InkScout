@@ -1,0 +1,194 @@
+<!-- ===================== upgrade.html ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upgrade to Pro - InkScout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="nav fade-down">
+    <div class="logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>InkScout</span>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="artist-dashboard.html">Dashboard</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="upgrade-hero fade-up">
+    <div class="upgrade-hero-inner">
+      <span class="upgrade-eyebrow">⚡ InkScout Pro</span>
+      <h1>Grow your career.<br>Get more clients.</h1>
+      <p>Pro gives you everything you need to stand out, get discovered, and fill your books.</p>
+    </div>
+  </section>
+
+  <!-- PRICING CARD -->
+  <section class="upgrade-section">
+    <div class="upgrade-grid">
+
+      <!-- Standard (for comparison) -->
+      <div class="upgrade-plan-card">
+        <div class="upgrade-plan-header">
+          <h2>Standard</h2>
+          <p class="upgrade-plan-price">Free</p>
+        </div>
+        <ul class="upgrade-plan-features">
+          <li class="feature-yes">✔ Public artist profile</li>
+          <li class="feature-yes">✔ Portfolio uploads</li>
+          <li class="feature-yes">✔ Appear in search results</li>
+          <li class="feature-no">✖ Direct messaging</li>
+          <li class="feature-no">✖ Booking system</li>
+          <li class="feature-no">✖ Pro badge</li>
+          <li class="feature-no">✖ Boosted search ranking</li>
+          <li class="feature-no">✖ Top Artists eligibility</li>
+        </ul>
+        <a href="artist-dashboard.html" class="secondary upgrade-plan-btn">Current Plan</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="upgrade-plan-card upgrade-plan-card--pro">
+        <div class="upgrade-plan-badge">Most Popular</div>
+        <div class="upgrade-plan-header">
+          <h2>Pro</h2>
+          <p class="upgrade-plan-price">$10<span>/month</span></p>
+          <p class="upgrade-plan-sub">Cancel anytime</p>
+        </div>
+        <ul class="upgrade-plan-features">
+          <li class="feature-yes">✔ Public artist profile</li>
+          <li class="feature-yes">✔ Portfolio uploads</li>
+          <li class="feature-yes">✔ Appear in search results</li>
+          <li class="feature-yes pro-feature">⚡ Direct messaging with clients</li>
+          <li class="feature-yes pro-feature">⚡ Booking system access</li>
+          <li class="feature-yes pro-feature">⚡ Pro badge on profile</li>
+          <li class="feature-yes pro-feature">⚡ Boosted search ranking</li>
+          <li class="feature-yes pro-feature">⚡ Top Artists eligibility</li>
+        </ul>
+        <button class="primary upgrade-plan-btn upgrade-cta-btn glow" id="upgradeBtn">
+          Upgrade to Pro — $10/mo
+        </button>
+        <p class="upgrade-secure-note">🔒 Secure payment via Stripe</p>
+      </div>
+
+    </div>
+
+    <!-- FAQ -->
+    <div class="upgrade-faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Can I cancel anytime? <span class="faq-arrow">▾</span>
+          </button>
+          <p class="faq-answer">Yes — you can cancel your Pro subscription at any time from your Stripe billing portal. Your Pro features remain active until the end of the billing period.</p>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What happens to my profile if I cancel? <span class="faq-arrow">▾</span>
+          </button>
+          <p class="faq-answer">Your profile, portfolio, and account remain intact. You'll just revert to Standard features — your Pro badge, boosted ranking, and messaging/booking access will be removed.</p>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How does boosted search ranking work? <span class="faq-arrow">▾</span>
+          </button>
+          <p class="faq-answer">Pro artists appear at the top of browse and search results ahead of Standard accounts, giving you significantly more visibility to potential clients.</p>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How do I get featured in Top Artists? <span class="faq-arrow">▾</span>
+          </button>
+          <p class="faq-answer">Pro members are eligible to be hand-picked by the InkScout team for the Top Artists section on the homepage. Selection is based on portfolio quality and client ratings.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer fade-in">
+    <p>© 2026 InkScout. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/test_28E4gy9cL9M8btj2YUbsc00';
+
+    const upgradeBtn = document.getElementById('upgradeBtn');
+
+    // Check auth state — if already Pro, update button
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (!userDoc.exists()) return;
+
+      const data = userDoc.data();
+
+      if (data.role !== 'artist') {
+        // Canvas users shouldn't be here
+        upgradeBtn.textContent = 'Pro is for Artist accounts only';
+        upgradeBtn.disabled = true;
+        return;
+      }
+
+      if (data.plan === 'pro') {
+        upgradeBtn.textContent = '✔ You\'re already on Pro!';
+        upgradeBtn.disabled = true;
+        upgradeBtn.classList.remove('glow');
+        return;
+      }
+
+      // Attach upgrade click — redirect to Stripe with user ID as client_reference_id
+      upgradeBtn.addEventListener('click', () => {
+        // Pass uid so we can identify the user after payment
+        const url = `${STRIPE_PAYMENT_LINK}?client_reference_id=${user.uid}`;
+        window.location.href = url;
+      });
+    });
+
+    // If not logged in, clicking upgrade sends to register first
+    upgradeBtn.addEventListener('click', () => {
+      if (!auth.currentUser) {
+        window.location.href = 'artist-register.html';
+      }
+    });
+
+    // FAQ accordion
+    window.toggleFaq = function(btn) {
+      const answer = btn.nextElementSibling;
+      const arrow  = btn.querySelector('.faq-arrow');
+      const isOpen = answer.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-arrow').forEach(a => a.textContent = '▾');
+
+      // Open clicked if it was closed
+      if (!isOpen) {
+        answer.classList.add('open');
+        arrow.textContent = '▴';
+      }
+    };
+  </script>
+
+</body>
+</html>

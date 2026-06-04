@@ -1,0 +1,403 @@
+<!-- ===================== canvas-dashboard.html ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Dashboard - InkScout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="dash-sidebar" id="sidebar">
+
+    <div class="dash-logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>InkScout</span>
+    </div>
+
+    <nav class="dash-nav">
+      <a href="#" class="dash-nav-item active" data-tab="overview">
+        <span class="dash-nav-icon">📊</span> Overview
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="saved">
+        <span class="dash-nav-icon">❤️</span> Saved Artists
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="bookings">
+        <span class="dash-nav-icon">📅</span> My Bookings
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="messages">
+        <span class="dash-nav-icon">💬</span> Messages
+        <span class="dash-badge" id="msgBadge" style="display:none">0</span>
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="settings">
+        <span class="dash-nav-icon">⚙️</span> Settings
+      </a>
+    </nav>
+
+    <div class="dash-sidebar-footer">
+      <a href="browse.html" class="dash-view-profile">🔍 Browse Artists</a>
+      <button class="dash-logout-btn" id="logoutBtn">Sign Out</button>
+    </div>
+
+  </aside>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="dash-main">
+
+    <!-- Mobile header -->
+    <header class="dash-mobile-header">
+      <button class="dash-menu-btn" id="menuBtn">☰</button>
+      <span class="dash-mobile-title">InkScout</span>
+    </header>
+
+    <!-- ===== OVERVIEW TAB ===== -->
+    <div class="dash-tab active" id="tab-overview">
+
+      <div class="dash-page-header">
+        <div>
+          <h1 class="dash-welcome" id="welcomeName">Welcome back 👋</h1>
+          <p class="dash-subtitle">Ready to find your next artist?</p>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="dash-stats-row">
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">❤️</span>
+          <div>
+            <p class="dash-stat-number" id="statSaved">—</p>
+            <p class="dash-stat-label">Saved Artists</p>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">📅</span>
+          <div>
+            <p class="dash-stat-number">—</p>
+            <p class="dash-stat-label">Bookings</p>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">💬</span>
+          <div>
+            <p class="dash-stat-number">—</p>
+            <p class="dash-stat-label">Messages</p>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">🖼️</span>
+          <div>
+            <p class="dash-stat-number">—</p>
+            <p class="dash-stat-label">Artists Viewed</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick actions -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h2>Quick Actions</h2>
+        </div>
+        <div class="canvas-quick-actions">
+          <a href="browse.html" class="canvas-action-btn">
+            <span>🔍</span>
+            <p>Browse Artists</p>
+          </a>
+          <a href="#" class="canvas-action-btn" data-goto="saved">
+            <span>❤️</span>
+            <p>Saved Artists</p>
+          </a>
+          <a href="#" class="canvas-action-btn" data-goto="bookings">
+            <span>📅</span>
+            <p>My Bookings</p>
+          </a>
+          <a href="#" class="canvas-action-btn" data-goto="messages">
+            <span>💬</span>
+            <p>Messages</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- Recent activity -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h2>Recent Activity</h2>
+        </div>
+        <p class="dash-empty-state">No recent activity yet. Start by browsing artists!</p>
+        <!-- TODO: Render recent views/bookings from Firestore -->
+      </div>
+
+    </div>
+
+    <!-- ===== SAVED ARTISTS TAB ===== -->
+    <div class="dash-tab" id="tab-saved">
+      <div class="dash-page-header">
+        <div>
+          <h1>Saved Artists</h1>
+          <p class="dash-subtitle">Artists you've hearted for later.</p>
+        </div>
+        <a href="browse.html" class="primary" style="text-decoration:none; padding: 10px 20px; font-size:0.9rem;">
+          + Find More Artists
+        </a>
+      </div>
+
+      <div class="dash-card" id="savedArtistsCard">
+        <p class="dash-empty-state" id="savedEmptyState">
+          You haven't saved any artists yet. 
+          <a href="browse.html" style="color:#e11d2e;">Browse artists</a> and tap 🤍 to save them here.
+        </p>
+        <div class="saved-artists-grid" id="savedArtistsGrid" style="display:none">
+          <!-- TODO: Dynamically rendered from Firestore savedArtists array -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BOOKINGS TAB ===== -->
+    <div class="dash-tab" id="tab-bookings">
+      <div class="dash-page-header">
+        <div>
+          <h1>My Bookings</h1>
+          <p class="dash-subtitle">Your consultation and appointment history.</p>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <p class="dash-empty-state" id="canvasBookingsEmpty" style="display:none">
+          No bookings yet. <a href="browse.html" style="color:#e11d2e;">Find an artist</a> to book a consultation.
+        </p>
+        <div id="canvasBookingsList"></div>
+      </div>
+    </div>
+
+    <!-- ===== MESSAGES TAB ===== -->
+    <div class="dash-tab" id="tab-messages">
+      <div class="dash-page-header">
+        <div>
+          <h1>Messages</h1>
+          <p class="dash-subtitle">Your conversations with artists.</p>
+        </div>
+      </div>
+
+      <div class="dash-messages-layout">
+
+        <!-- Conversation list -->
+        <div class="dash-convo-list dash-card" style="margin-bottom:0;">
+          <p class="dash-empty-state">No conversations yet.</p>
+          <!-- TODO: Render conversation list from Firestore -->
+        </div>
+
+        <!-- Message thread placeholder -->
+        <div class="dash-convo-thread dash-card" style="margin-bottom:0;">
+          <div class="dash-thread-empty">
+            <span>💬</span>
+            <p>Select a conversation to read messages.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== SETTINGS TAB ===== -->
+    <div class="dash-tab" id="tab-settings">
+      <div class="dash-page-header">
+        <div>
+          <h1>Settings</h1>
+          <p class="dash-subtitle">Update your account details.</p>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <h2 class="dash-card-title">Account Info</h2>
+        <form class="register-form" id="settingsForm" style="max-width:480px; margin-top:20px;">
+
+          <div class="form-group">
+            <label>Display Name</label>
+            <input type="text" id="settingsName" placeholder="Your name">
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="settingsEmail" placeholder="your@email.com" disabled>
+            <small style="color:#555; margin-top:4px;">Email cannot be changed here.</small>
+          </div>
+
+          <p class="form-error" id="settingsError"></p>
+          <p class="form-success" id="settingsSuccess"></p>
+
+          <button type="submit" class="primary form-submit">Save Changes</button>
+        </form>
+      </div>
+
+      <!-- Danger zone -->
+      <div class="dash-card dash-danger-card" style="margin-top:24px;">
+        <h2 class="dash-card-title" style="color:#e11d2e;">Danger Zone</h2>
+        <p style="color:#aaa; margin: 12px 0;">Once you delete your account, there's no going back.</p>
+        <button class="dash-delete-btn">Delete Account</button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // ── Auth guard ──
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = 'canvas-login.html';
+        return;
+      }
+
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (!userDoc.exists() || userDoc.data().role !== 'canvas') {
+        await signOut(auth);
+        window.location.href = 'canvas-login.html';
+        return;
+      }
+
+      const data = userDoc.data();
+
+      // Populate UI
+      document.getElementById('welcomeName').textContent = `Welcome back, ${data.name} 👋`;
+      document.getElementById('settingsName').value      = data.name  || '';
+      document.getElementById('settingsEmail').value     = data.email || '';
+
+      loadCanvasBookings(user.uid);
+
+      // Saved artists count
+      const savedCount = (data.savedArtists || []).length;
+      document.getElementById('statSaved').textContent = savedCount;
+
+      // Render saved artists if any
+      if (savedCount > 0) {
+        document.getElementById('savedEmptyState').style.display = 'none';
+        document.getElementById('savedArtistsGrid').style.display = 'grid';
+        // TODO: fetch each artist doc from Firestore and render cards
+      }
+    });
+
+    // ── Tab navigation ──
+    const navItems = document.querySelectorAll('.dash-nav-item');
+    const tabs     = document.querySelectorAll('.dash-tab');
+
+    function switchTab(target) {
+      navItems.forEach(n => n.classList.remove('active'));
+      tabs.forEach(t => t.classList.remove('active'));
+      const navItem = document.querySelector(`[data-tab="${target}"]`);
+      if (navItem) navItem.classList.add('active');
+      const tab = document.getElementById(`tab-${target}`);
+      if (tab) tab.classList.add('active');
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchTab(item.dataset.tab);
+      });
+    });
+
+    // Quick action links that switch tabs
+    document.querySelectorAll('[data-goto]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchTab(link.dataset.goto);
+      });
+    });
+
+    // ── Mobile sidebar toggle ──
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    // ── Logout ──
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'index.html';
+    });
+
+    // ── Settings save ──
+    document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errorEl   = document.getElementById('settingsError');
+      const successEl = document.getElementById('settingsSuccess');
+      errorEl.textContent   = '';
+      successEl.textContent = '';
+
+      const user = auth.currentUser;
+      if (!user) return;
+
+      try {
+        await updateDoc(doc(db, 'users', user.uid), {
+          name: document.getElementById('settingsName').value.trim()
+        });
+        successEl.textContent = 'Changes saved!';
+        document.getElementById('welcomeName').textContent =
+          `Welcome back, ${document.getElementById('settingsName').value.trim()} 👋`;
+      } catch (err) {
+        errorEl.textContent = 'Could not save changes. Please try again.';
+        console.error(err);
+      }
+    });
+
+    // ── Load bookings (canvas view) ──
+    async function loadCanvasBookings(canvasUid) {
+      const { collection, query, where, orderBy, onSnapshot } =
+        await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+
+      const q = query(
+        collection(db, 'bookings'),
+        where('canvasUid', '==', canvasUid),
+        orderBy('createdAt', 'desc')
+      );
+
+      onSnapshot(q, (snapshot) => {
+        const listEl  = document.getElementById('canvasBookingsList');
+        const emptyEl = document.getElementById('canvasBookingsEmpty');
+        listEl.innerHTML = '';
+
+        if (snapshot.empty) {
+          emptyEl.style.display = 'block';
+          return;
+        }
+        emptyEl.style.display = 'none';
+
+        const statusColors = {
+          pending:   '#f5a623',
+          confirmed: '#22c55e',
+          declined:  '#e11d2e'
+        };
+
+        snapshot.forEach(docSnap => {
+          const b    = docSnap.data();
+          const card = document.createElement('div');
+          card.className = 'booking-card-item';
+          card.innerHTML = `
+            <div class="booking-card-top">
+              <div>
+                <p class="booking-card-name">${b.artistName}</p>
+                <p class="booking-card-detail">📅 ${b.date} at ${b.time}</p>
+                <p class="booking-card-detail">📐 ${b.size} · ${b.placement || 'Placement TBD'}</p>
+                <p class="booking-card-idea">${b.idea}</p>
+              </div>
+              <span class="booking-status-badge"
+                style="background:${statusColors[b.status] || '#555'}">
+                ${b.status.charAt(0).toUpperCase() + b.status.slice(1)}
+              </span>
+            </div>
+          `;
+          listEl.appendChild(card);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
