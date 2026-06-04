@@ -40,24 +40,30 @@ body {
 }
 
 .logo-img {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-  transition: transform 0.4s ease;
+    width: 40px;
+      transition: transform 0.3s ease;
+      }
+
+      .logo-img:hover {
+        transform: rotate(10deg) scale(1.1);
+        }
+
+        .logo span {
+          display: inline;
+          }
 }
-
-.logo-img:hover {
-  transform: rotate(15deg) scale(1.08);
-}
-
-/* Hide the text "InkScout" next to the logo — the logo already has it */
-.logo span {
-  display: none;
-}
-
-/* ===================== HERO ===================== */
-
-.hero {
+.logo-img {
+  width: 40px;
+    transition: transform 0.3s ease;
+    }
+    
+    .logo-img:hover {
+      transform: rotate(10deg) scale(1.1);
+      }
+      
+      .logo span {
+        display: inline;
+        }.hero {
   text-align: center;
   padding: 100px 20px;
 }
@@ -384,14 +390,26 @@ body {
   margin-top: 5px;
 }
 
-.homepic img {
-  height: 500px;
-  width: 1000px;
-  display: block;
-  margin: 0 auto;
-  padding-bottom: 100px;
-  object-fit: cover;
-  border-radius: 12px;
+.homepic {
+    display: flex;
+      justify-content: center;
+        padding: 20px 20px 60px;
+        }
+
+        .homepic img {
+          width: 420px;
+            max-width: 90%;
+              height: auto;
+                display: block;
+                  filter: drop-shadow(0 0 40px rgba(225, 29, 46, 0.35));
+                    transition: transform 0.4s ease, filter 0.4s ease;
+                      animation: fadeUp 1s ease forwards;
+                      }
+
+                      .homepic img:hover {
+                        transform: scale(1.04);
+                          filter: drop-shadow(0 0 60px rgba(225, 29, 46, 0.55));
+                          }
 }
 
 .video img {
