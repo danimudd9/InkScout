@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ava Black - InkScout</title>
+  <title>Artist Profile - InkScout</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -20,40 +20,34 @@
       <span>InkScout</span>
     </a>
     <nav>
-      <a href="index.html">Home</a>
       <a href="browse.html">Browse</a>
       <a href="prelogin.html">Login</a>
     </nav>
   </header>
 
-  <!-- ===================== PROFILE HEADER ===================== -->
+  <!-- PROFILE HEADER -->
   <section class="profile-header fade-up">
 
-    <!-- Banner -->
     <div class="profile-banner">
-      <img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1400&auto=format&fit=crop" alt="Profile Banner">
+      <img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1400&auto=format&fit=crop" alt="Banner" id="profileBanner">
     </div>
 
-    <!-- Avatar + identity -->
     <div class="profile-identity">
 
       <div class="profile-avatar-wrap">
-        <img class="profile-avatar" src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=300&auto=format&fit=crop" alt="Ava Black">
-        <!-- PRO BADGE — remove this block for standard accounts -->
-        <span class="pro-badge">⚡ PRO</span>
-        <!-- OG BADGE — shown for OG members -->
-        <span class="og-badge og-avatar-badge" id="profileOGBadge" style="display:none">🔥 OG</span>
+        <img class="profile-avatar" id="profileAvatar"
+          src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=300&auto=format&fit=crop"
+          alt="Artist">
+        <span class="pro-badge" id="proBadge">⚡ PRO</span>
+        <span class="og-badge og-avatar-badge" id="ogBadge" style="display:none">🔥 OG</span>
       </div>
 
       <div class="profile-meta">
         <div class="profile-name-row">
-          <h1>Ava Black</h1>
-          <!-- PRO glow on name — remove class "pro-name" for standard accounts -->
+          <h1 id="profileName">Loading...</h1>
         </div>
-        <div class="profile-tags">
-          <span class="tag">🖤 Black & Grey</span>
-          <span class="tag">📍 Austin, TX</span>
-          <span class="tag">⭐ 4.9 (128 reviews)</span>
+        <div class="profile-tags" id="profileTags">
+          <span class="tag">—</span>
         </div>
         <div class="profile-actions">
           <a href="booking.html?uid=sample-artist-uid" class="primary profile-book-btn" id="bookBtn">📅 Book a Consultation</a>
@@ -63,108 +57,116 @@
       </div>
 
     </div>
-
   </section>
 
-  <!-- ===================== MAIN CONTENT ===================== -->
+  <!-- PROFILE TABS -->
+  <div class="profile-tabs-bar">
+    <button class="profile-tab-btn active" data-ptab="portfolio">🖼️ Portfolio</button>
+    <button class="profile-tab-btn" data-ptab="about">📋 About</button>
+    <button class="profile-tab-btn" data-ptab="reviews">⭐ Reviews <span class="profile-tab-count" id="reviewCount"></span></button>
+  </div>
+
+  <!-- MAIN BODY -->
   <div class="profile-body">
 
     <!-- LEFT COLUMN -->
     <div class="profile-left">
 
-      <!-- Bio -->
-      <div class="profile-section">
-        <h2 class="profile-section-title">About</h2>
-        <p class="profile-bio">
-          I'm a Black & Grey realism artist based out of Austin, TX with over 8 years of professional experience.
-          I specialize in portrait work, nature scenes, and intricate geometric designs. Every piece I create
-          is custom — I don't do flash. If you've got a vision, let's make it happen.
-        </p>
-      </div>
-
-      <!-- Portfolio Grid -->
-      <div class="profile-section">
-        <h2 class="profile-section-title">Portfolio</h2>
-        <div class="portfolio-grid">
-          <div class="portfolio-item">
-            <img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Portfolio 1">
-          </div>
-          <div class="portfolio-item">
-            <img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Portfolio 2">
-          </div>
-          <div class="portfolio-item">
-            <img src="https://images.unsplash.com/photo-1590246814883-57c511e4f57e?w=400&auto=format&fit=crop" alt="Portfolio 3">
-          </div>
-          <div class="portfolio-item">
-            <img src="https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?w=400&auto=format&fit=crop" alt="Portfolio 4">
-          </div>
-          <div class="portfolio-item">
-            <img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Portfolio 5">
-          </div>
-          <div class="portfolio-item">
-            <img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Portfolio 6">
+      <!-- PORTFOLIO TAB -->
+      <div class="profile-tab-content active" id="ptab-portfolio">
+        <div class="profile-section">
+          <div class="portfolio-grid" id="portfolioGrid">
+            <div class="portfolio-item"><img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Work 1"></div>
+            <div class="portfolio-item"><img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Work 2"></div>
+            <div class="portfolio-item"><img src="https://images.unsplash.com/photo-1590246814883-57c511e4f57e?w=400&auto=format&fit=crop" alt="Work 3"></div>
+            <div class="portfolio-item"><img src="https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?w=400&auto=format&fit=crop" alt="Work 4"></div>
+            <div class="portfolio-item"><img src="https://lanzadera-digital.b-cdn.net/gangatattoolosangeles.com/Styles/Black%20%26%20Gray%20Realism/bg-image-1.webp" alt="Work 5"></div>
+            <div class="portfolio-item"><img src="https://tattoogenda.com/wp-content/uploads/2022/12/291218935_590683715999700_619908202020858408_n.jpg" alt="Work 6"></div>
           </div>
         </div>
       </div>
 
-      <!-- Reviews -->
-      <div class="profile-section">
-        <h2 class="profile-section-title">Reviews</h2>
-        <div class="reviews-list">
+      <!-- ABOUT TAB -->
+      <div class="profile-tab-content" id="ptab-about">
+        <div class="profile-section">
+          <h2 class="profile-section-title">About</h2>
+          <p class="profile-bio" id="profileBio">
+            I'm a Black & Grey realism artist based out of Austin, TX with over 8 years of professional experience.
+            I specialize in portrait work, nature scenes, and intricate geometric designs. Every piece I create
+            is custom — I don't do flash. If you've got a vision, let's make it happen.
+          </p>
+        </div>
+      </div>
 
-          <div class="review-card">
-            <div class="review-top">
-              <span class="review-author">Jordan M.</span>
-              <span class="review-stars">⭐⭐⭐⭐⭐</span>
-            </div>
-            <p class="review-text">"Ava is an absolute genius. My sleeve came out better than I ever imagined. The detail in the shading is unreal — I get compliments every single day."</p>
+      <!-- REVIEWS TAB -->
+      <div class="profile-tab-content" id="ptab-reviews">
+        <div class="profile-section">
+          <div class="reviews-header">
+            <h2 class="profile-section-title">Reviews</h2>
+            <button class="primary leave-review-btn" id="leaveReviewBtn" style="display:none;">✍️ Leave a Review</button>
           </div>
 
-          <div class="review-card">
-            <div class="review-top">
-              <span class="review-author">Taylor R.</span>
-              <span class="review-stars">⭐⭐⭐⭐⭐</span>
+          <!-- Review form (hidden by default) -->
+          <div class="review-form-wrap" id="reviewFormWrap" style="display:none;">
+            <div class="review-form">
+              <p class="review-form-title">Your Review</p>
+              <div class="star-picker" id="starPicker">
+                <span class="star-opt" data-val="1">★</span>
+                <span class="star-opt" data-val="2">★</span>
+                <span class="star-opt" data-val="3">★</span>
+                <span class="star-opt" data-val="4">★</span>
+                <span class="star-opt" data-val="5">★</span>
+              </div>
+              <textarea id="reviewText" placeholder="Share your experience with this artist..." rows="4"></textarea>
+              <div class="review-form-actions">
+                <button class="secondary" onclick="document.getElementById('reviewFormWrap').style.display='none'">Cancel</button>
+                <button class="primary" id="submitReviewBtn">Submit Review</button>
+              </div>
+              <p class="form-error" id="reviewError"></p>
+              <p class="form-success" id="reviewSuccess"></p>
             </div>
-            <p class="review-text">"Super professional, clean studio, and the booking process through InkScout was seamless. 100% going back for my next piece."</p>
           </div>
 
-          <div class="review-card">
-            <div class="review-top">
-              <span class="review-author">Casey L.</span>
-              <span class="review-stars">⭐⭐⭐⭐½</span>
-            </div>
-            <p class="review-text">"Incredible artist. Brought my concept to life in a way I didn't think was possible. Highly recommend for anyone wanting realistic portrait work."</p>
+          <div class="reviews-list" id="reviewsList">
+            <p class="dash-empty-state" id="reviewsEmpty" style="display:none;">No reviews yet. Be the first!</p>
           </div>
-
         </div>
       </div>
 
     </div>
 
-    <!-- RIGHT COLUMN (sidebar) -->
+    <!-- RIGHT SIDEBAR -->
     <div class="profile-right">
 
       <!-- Pro card -->
-      <div class="profile-sidebar-card pro-sidebar-card">
+      <div class="profile-sidebar-card pro-sidebar-card" id="proSideCard">
         <div class="pro-sidebar-header">
           <span class="pro-sidebar-badge">⚡ PRO ARTIST</span>
         </div>
-        <p>Ava is a verified Pro member on InkScout — featured in search results and eligible for our Top Artists spotlight.</p>
+        <p>This artist is a verified Pro member — featured in search results and eligible for our Top Artists spotlight.</p>
+      </div>
+
+      <!-- Stats card -->
+      <div class="profile-sidebar-card">
+        <h3>Stats</h3>
+        <ul class="profile-details-list">
+          <li><span>❤️</span> <span id="sidebarSaves">—</span> saves</li>
+          <li><span>⭐</span> <span id="sidebarRating">—</span> avg rating</li>
+          <li><span>📝</span> <span id="sidebarReviewCount">—</span> reviews</li>
+        </ul>
       </div>
 
       <!-- Details card -->
       <div class="profile-sidebar-card">
         <h3>Details</h3>
-        <ul class="profile-details-list">
-          <li><span>📍</span> Austin, TX</li>
-          <li><span>🖤</span> Black & Grey</li>
+        <ul class="profile-details-list" id="detailsList">
+          <li><span>📍</span> —</li>
+          <li><span>🖤</span> —</li>
           <li><span>📅</span> Booking: Open</li>
-          <li><span>💰</span> Starting at $200/hr</li>
-          <li><span>🗣️</span> English</li>
         </ul>
       </div>
 
-      <!-- Social links card -->
+      <!-- Social links -->
       <div class="profile-sidebar-card">
         <h3>Follow</h3>
         <div class="profile-socials">
@@ -174,11 +176,13 @@
         </div>
       </div>
 
-      <!-- Book CTA card -->
+      <!-- Book CTA -->
       <div class="profile-sidebar-card book-cta-card">
         <h3>Ready to get inked?</h3>
-        <p>Book a consultation with Ava and bring your idea to life.</p>
-        <a href="booking.html?uid=sample-artist-uid" class="primary form-submit" id="sideBookBtn" style="display:block; text-align:center; text-decoration:none; margin-top:16px;">
+        <p>Book a consultation and bring your idea to life.</p>
+        <a href="booking.html?uid=sample-artist-uid" class="primary form-submit"
+           id="sideBookBtn"
+           style="display:block; text-align:center; text-decoration:none; margin-top:16px;">
           📅 Book Now
         </a>
       </div>
@@ -196,122 +200,250 @@
     import { auth, db } from './firebase.js';
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import {
-      collection, doc, addDoc, getDocs, getDoc,
-      query, where, serverTimestamp
+      collection, doc, addDoc, getDoc, getDocs, updateDoc,
+      query, where, orderBy, serverTimestamp, increment
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const urlParams      = new URLSearchParams(window.location.search);
     const artistUid      = urlParams.get('uid') || 'sample-artist-uid';
-    const isSampleArtist = artistUid === 'sample-artist-uid';
+    const isSample       = artistUid.startsWith('sample-');
 
-    // ── Set booking links dynamically based on URL param ──
+    // Booking links
     document.getElementById('bookBtn').href     = `booking.html?uid=${artistUid}`;
     document.getElementById('sideBookBtn').href = `booking.html?uid=${artistUid}`;
 
-    // ── Load artist data from Firestore (skip for sample) ──
-    if (!isSampleArtist) {
+    // ── Load artist from Firestore ──
+    if (!isSample) {
       getDoc(doc(db, 'users', artistUid)).then(snap => {
         if (!snap.exists() || snap.data().role !== 'artist') return;
         const a = snap.data();
 
-        // Update page title
         document.title = `${a.name} - InkScout`;
+        document.getElementById('profileName').textContent = a.name || 'Artist';
 
-        // Update name, tags
-        document.querySelector('.profile-name-row h1').textContent = a.name || 'Artist';
-
-        // Update tags
-        const tagsEl = document.querySelector('.profile-tags');
-        tagsEl.innerHTML = `
-          <span class="tag">${a.style ? '🖤 ' + a.style : ''}</span>
-          <span class="tag">📍 ${a.location || '—'}</span>
-          ${a.rating ? `<span class="tag">⭐ ${a.rating}</span>` : ''}
+        document.getElementById('profileTags').innerHTML = `
+          ${a.style    ? `<span class="tag">🖤 ${a.style}</span>` : ''}
+          ${a.location ? `<span class="tag">📍 ${a.location}</span>` : ''}
+          <span class="tag">❤️ <span id="saveCount">${a.saves || 0}</span> saves</span>
         `;
 
-        // Update bio
-        const bioEl = document.querySelector('.profile-bio');
-        if (bioEl && a.bio) bioEl.textContent = a.bio;
+        if (a.bio) document.getElementById('profileBio').textContent = a.bio;
+        if (a.photo) document.getElementById('profileAvatar').src = a.photo;
 
-        // Update avatar
-        const avatarEl = document.querySelector('.profile-avatar');
-        if (avatarEl && a.photo) avatarEl.src = a.photo;
+        document.getElementById('proBadge').style.display  = a.plan === 'pro' ? '' : 'none';
+        document.getElementById('ogBadge').style.display   = a.og   ? '' : 'none';
+        document.getElementById('proSideCard').style.display = a.plan === 'pro' ? '' : 'none';
 
-        // Pro badge
-        const proBadgeEl = document.querySelector('.pro-badge');
-        if (proBadgeEl) proBadgeEl.style.display = a.plan === 'pro' ? 'inline-flex' : 'none';
+        document.getElementById('detailsList').innerHTML = `
+          <li><span>📍</span> ${a.location || '—'}</li>
+          <li><span>🖤</span> ${a.style || '—'}</li>
+          <li><span>📅</span> Booking: Open</li>
+          ${a.rate ? `<li><span>💰</span> ${a.rate}</li>` : ''}
+        `;
 
-        // OG badge
-        const ogBadgeEl = document.getElementById('profileOGBadge');
-        if (ogBadgeEl) ogBadgeEl.style.display = a.og ? 'inline-flex' : 'none';
-
-        // Sidebar details
-        const detailsList = document.querySelector('.profile-details-list');
-        if (detailsList) {
-          detailsList.innerHTML = `
-            <li><span>📍</span> ${a.location || '—'}</li>
-            <li><span>🖤</span> ${a.style || '—'}</li>
-            <li><span>📅</span> Booking: Open</li>
-            ${a.rate ? `<li><span>💰</span> ${a.rate}</li>` : ''}
-          `;
-        }
-
-        // Pro sidebar card
-        const proSideCard = document.querySelector('.pro-sidebar-card');
-        if (proSideCard) proSideCard.style.display = a.plan === 'pro' ? 'block' : 'none';
+        document.getElementById('sidebarSaves').textContent = a.saves || 0;
 
       }).catch(err => console.warn('Could not load artist:', err));
+    } else {
+      // Sample artist — show demo saves count
+      document.getElementById('profileTags').innerHTML = `
+        <span class="tag">🖤 Black & Grey</span>
+        <span class="tag">📍 Austin, TX</span>
+        <span class="tag">❤️ 128 saves</span>
+      `;
+      document.getElementById('sidebarSaves').textContent = 128;
     }
 
-    // ── Heart / Save toggle ──
-    let saved = false;
-    window.toggleHeart = function() {
-      saved = !saved;
-      const btn = document.getElementById('heartBtn');
-      btn.textContent = saved ? '❤️ Saved' : '🤍 Save Artist';
-      btn.classList.toggle('heart-active', saved);
-    };
-
-    // ── Message button ──
-    document.getElementById('msgBtn').addEventListener('click', async () => {
-      const user = auth.currentUser;
-      if (!user) {
-        window.location.href = 'canvas-login.html';
+    // ── Load reviews ──
+    async function loadReviews() {
+      if (isSample) {
+        // Show demo reviews for sample artists
+        renderReviews([
+          { authorName: 'Jordan M.', rating: 5, text: 'Ava is an absolute genius. My sleeve came out better than I ever imagined.', createdAt: null },
+          { authorName: 'Taylor R.', rating: 5, text: 'Super professional, clean studio, and the booking process was seamless.', createdAt: null },
+          { authorName: 'Casey L.', rating: 4, text: 'Incredible artist. Brought my concept to life in a way I didn\'t think was possible.', createdAt: null }
+        ]);
+        updateRatingStats([5, 5, 4]);
         return;
       }
 
       try {
         const q = query(
-          collection(db, 'conversations'),
-          where('participants', 'array-contains', user.uid)
+          collection(db, 'reviews'),
+          where('artistUid', '==', artistUid),
+          orderBy('createdAt', 'desc')
         );
-        const snapshot = await getDocs(q);
-        let existingConvoId = null;
+        const snap = await getDocs(q);
+        const reviews = [];
+        snap.forEach(d => reviews.push(d.data()));
+        renderReviews(reviews);
+        updateRatingStats(reviews.map(r => r.rating));
+      } catch (err) {
+        console.warn('Could not load reviews:', err);
+      }
+    }
 
-        snapshot.forEach(docSnap => {
-          const data = docSnap.data();
-          if (data.participants.includes(artistUid)) {
-            existingConvoId = docSnap.id;
-          }
+    function renderReviews(reviews) {
+      const list   = document.getElementById('reviewsList');
+      const empty  = document.getElementById('reviewsEmpty');
+      const count  = document.getElementById('reviewCount');
+      count.textContent = reviews.length > 0 ? reviews.length : '';
+
+      if (reviews.length === 0) {
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      list.innerHTML = reviews.map(r => `
+        <div class="review-card">
+          <div class="review-top">
+            <span class="review-author">${r.authorName || 'Anonymous'}</span>
+            <span class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
+          </div>
+          <p class="review-text">${r.text}</p>
+        </div>
+      `).join('');
+    }
+
+    function updateRatingStats(ratings) {
+      if (ratings.length === 0) {
+        document.getElementById('sidebarRating').textContent = '—';
+        document.getElementById('sidebarReviewCount').textContent = 0;
+        return;
+      }
+      const avg = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
+      document.getElementById('sidebarRating').textContent      = avg;
+      document.getElementById('sidebarReviewCount').textContent = ratings.length;
+      document.getElementById('reviewCount').textContent        = ratings.length;
+    }
+
+    loadReviews();
+
+    // ── Review form ──
+    let selectedRating = 0;
+
+    document.querySelectorAll('.star-opt').forEach(star => {
+      star.addEventListener('mouseover', () => highlightStars(+star.dataset.val));
+      star.addEventListener('mouseout',  () => highlightStars(selectedRating));
+      star.addEventListener('click',     () => { selectedRating = +star.dataset.val; highlightStars(selectedRating); });
+    });
+
+    function highlightStars(n) {
+      document.querySelectorAll('.star-opt').forEach((s, i) => {
+        s.classList.toggle('active', i < n);
+      });
+    }
+
+    document.getElementById('leaveReviewBtn')?.addEventListener('click', () => {
+      document.getElementById('reviewFormWrap').style.display = 'block';
+    });
+
+    document.getElementById('submitReviewBtn')?.addEventListener('click', async () => {
+      const errorEl   = document.getElementById('reviewError');
+      const successEl = document.getElementById('reviewSuccess');
+      errorEl.textContent   = '';
+      successEl.textContent = '';
+
+      const user = auth.currentUser;
+      if (!user) { errorEl.textContent = 'You must be logged in to leave a review.'; return; }
+      if (!selectedRating) { errorEl.textContent = 'Please select a star rating.'; return; }
+
+      const text = document.getElementById('reviewText').value.trim();
+      if (!text) { errorEl.textContent = 'Please write something about your experience.'; return; }
+
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      const userName = userDoc.exists() ? userDoc.data().name : 'Anonymous';
+
+      try {
+        await addDoc(collection(db, 'reviews'), {
+          artistUid:   artistUid,
+          authorUid:   user.uid,
+          authorName:  userName,
+          rating:      selectedRating,
+          text:        text,
+          createdAt:   serverTimestamp()
         });
 
+        successEl.textContent = 'Review submitted! Thank you.';
+        document.getElementById('reviewText').value = '';
+        selectedRating = 0;
+        highlightStars(0);
+        setTimeout(() => {
+          document.getElementById('reviewFormWrap').style.display = 'none';
+          loadReviews();
+        }, 1500);
+      } catch (err) {
+        errorEl.textContent = 'Could not submit review. Please try again.';
+      }
+    });
+
+    // ── Heart / Save toggle ──
+    let saved = false;
+    window.toggleHeart = async function() {
+      saved = !saved;
+      const btn = document.getElementById('heartBtn');
+      btn.textContent = saved ? '❤️ Saved' : '🤍 Save Artist';
+      btn.classList.toggle('heart-active', saved);
+
+      // Update save count in Firestore
+      if (!isSample) {
+        try {
+          await updateDoc(doc(db, 'users', artistUid), {
+            saves: increment(saved ? 1 : -1)
+          });
+          const countEl = document.getElementById('saveCount');
+          if (countEl) countEl.textContent = parseInt(countEl.textContent || 0) + (saved ? 1 : -1);
+          const sideEl = document.getElementById('sidebarSaves');
+          if (sideEl) sideEl.textContent = parseInt(sideEl.textContent || 0) + (saved ? 1 : -1);
+        } catch(e) {}
+      }
+    };
+
+    // ── Message button ──
+    document.getElementById('msgBtn').addEventListener('click', async () => {
+      const user = auth.currentUser;
+      if (!user) { window.location.href = 'canvas-login.html'; return; }
+      try {
+        const q = query(collection(db, 'conversations'), where('participants', 'array-contains', user.uid));
+        const snapshot = await getDocs(q);
+        let existingConvoId = null;
+        snapshot.forEach(d => { if (d.data().participants.includes(artistUid)) existingConvoId = d.id; });
         if (existingConvoId) {
           window.location.href = `messages.html?convo=${existingConvoId}`;
         } else {
-          const convoRef = await addDoc(collection(db, 'conversations'), {
-            participants:  [user.uid, artistUid],
-            lastMessage:   '',
-            lastMessageAt: serverTimestamp(),
-            unreadCount:   { [user.uid]: 0, [artistUid]: 0 },
-            createdAt:     serverTimestamp()
+          const ref = await addDoc(collection(db, 'conversations'), {
+            participants: [user.uid, artistUid],
+            lastMessage: '', lastMessageAt: serverTimestamp(),
+            unreadCount: { [user.uid]: 0, [artistUid]: 0 },
+            createdAt: serverTimestamp()
           });
-          window.location.href = `messages.html?convo=${convoRef.id}`;
+          window.location.href = `messages.html?convo=${ref.id}`;
         }
-      } catch (err) {
-        console.error('Could not open conversation:', err);
+      } catch (err) { console.error(err); }
+    });
+
+    // Show leave review button for logged-in canvas users
+    onAuthStateChanged(auth, async (user) => {
+      if (!user || isSample) return;
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists() && userDoc.data().role === 'canvas') {
+        document.getElementById('leaveReviewBtn').style.display = 'inline-block';
       }
     });
+
+    // ── Profile tab switching ──
+    document.querySelectorAll('.profile-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.profile-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.profile-tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(`ptab-${btn.dataset.ptab}`).classList.add('active');
+      });
+    });
+
   </script>
 
-<script src="nav.js"></script>
+  <script src="nav.js"></script>
 </body>
 </html>

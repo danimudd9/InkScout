@@ -276,7 +276,7 @@
             <h3>${artist.name}</h3>
             <p>${artist.style}</p>
             <p style="color:#888; font-size:0.82rem; margin-top:2px;">📍 ${artist.location}</p>
-            <span class="rating">⭐ ${artist.rating ?? 'New'}${artist.reviews > 0 ? ` (${artist.reviews})` : ''}</span>
+            <span class="rating">❤️ ${artist.saves || 0} saves</span>
             <a href="profile.html?uid=${artist.uid}" class="view-btn">View Profile</a>
           </div>
         `;
