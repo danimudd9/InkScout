@@ -235,10 +235,11 @@ body {
 
 .homepic img {
   width: 420px;
+  height: 420px;
   max-width: 90%;
-  height: auto;
   display: block;
   border-radius: 50%;
+  object-fit: cover;
   filter: drop-shadow(0 0 40px rgba(225, 29, 46, 0.35));
   transition: transform 0.4s ease, filter 0.4s ease;
   animation: fadeUp 1s ease forwards;
