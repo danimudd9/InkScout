@@ -1,0 +1,537 @@
+<!-- ===================== admin-dashboard.html ===================== -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - InkScout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/logo.png">
+</head>
+<body class="dashboard-body">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="dash-sidebar" id="sidebar">
+
+    <div class="dash-logo">
+      <img src="assets/logo.png" class="logo-img">
+      <span>Admin</span>
+    </div>
+
+    <nav class="dash-nav">
+      <a href="#" class="dash-nav-item active" data-tab="overview">
+        <span class="dash-nav-icon">📊</span> Overview
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="users">
+        <span class="dash-nav-icon">👥</span> Users
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="bookings">
+        <span class="dash-nav-icon">📅</span> Bookings
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="topartists">
+        <span class="dash-nav-icon">🔥</span> Top Artists
+      </a>
+      <a href="#" class="dash-nav-item" data-tab="og">
+        <span class="dash-nav-icon">⭐</span> OG Members
+      </a>
+    </nav>
+
+    <div class="dash-sidebar-footer">
+      <a href="index.html" class="dash-view-profile">🌐 View Site</a>
+      <button class="dash-logout-btn" id="logoutBtn">Sign Out</button>
+    </div>
+
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="dash-main">
+
+    <!-- Mobile header -->
+    <header class="dash-mobile-header">
+      <button class="dash-menu-btn" id="menuBtn">☰</button>
+      <span class="dash-mobile-title">⚡ InkScout Admin</span>
+    </header>
+
+    <!-- ===== OVERVIEW TAB ===== -->
+    <div class="dash-tab active" id="tab-overview">
+
+      <div class="dash-page-header">
+        <div>
+          <h1 class="dash-welcome">Welcome back 👋</h1>
+          <p class="dash-subtitle">Here's what's happening on InkScout.</p>
+        </div>
+        <span class="admin-badge">⚡ ADMIN</span>
+      </div>
+
+      <div class="dash-stats-row">
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">🎨</span>
+          <div>
+            <p class="dash-stat-number" id="statArtists">—</p>
+            <p class="dash-stat-label">Total Artists</p>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">🖋</span>
+          <div>
+            <p class="dash-stat-number" id="statCanvas">—</p>
+            <p class="dash-stat-label">Total Canvas</p>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">⚡</span>
+          <div>
+            <p class="dash-stat-number" id="statPro">—</p>
+            <p class="dash-stat-label">Pro Members</p>
+          </div>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-icon">📅</span>
+          <div>
+            <p class="dash-stat-number" id="statBookings">—</p>
+            <p class="dash-stat-label">Total Bookings</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent signups -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h2>Recent Signups</h2>
+          <a href="#" class="dash-card-link" data-goto="users">View all →</a>
+        </div>
+        <div id="recentSignups">
+          <p class="dash-empty-state">Loading...</p>
+        </div>
+      </div>
+
+      <!-- Recent bookings -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <h2>Recent Bookings</h2>
+          <a href="#" class="dash-card-link" data-goto="bookings">View all →</a>
+        </div>
+        <div id="recentBookings">
+          <p class="dash-empty-state">Loading...</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== USERS TAB ===== -->
+    <div class="dash-tab" id="tab-users">
+
+      <div class="dash-page-header">
+        <div>
+          <h1>Users</h1>
+          <p class="dash-subtitle">Manage all artist and canvas accounts.</p>
+        </div>
+        <!-- Filter buttons -->
+        <div class="admin-filter-btns">
+          <button class="admin-filter-btn active" data-filter="all">All</button>
+          <button class="admin-filter-btn" data-filter="artist">Artists</button>
+          <button class="admin-filter-btn" data-filter="canvas">Canvas</button>
+          <button class="admin-filter-btn" data-filter="pro">Pro</button>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div id="usersList">
+          <p class="dash-empty-state">Loading users...</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== BOOKINGS TAB ===== -->
+    <div class="dash-tab" id="tab-bookings">
+
+      <div class="dash-page-header">
+        <div>
+          <h1>Bookings</h1>
+          <p class="dash-subtitle">All consultation requests across the platform.</p>
+        </div>
+        <div class="admin-filter-btns">
+          <button class="admin-filter-btn active" data-bfilter="all">All</button>
+          <button class="admin-filter-btn" data-bfilter="pending">Pending</button>
+          <button class="admin-filter-btn" data-bfilter="confirmed">Confirmed</button>
+          <button class="admin-filter-btn" data-bfilter="declined">Declined</button>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div id="allBookingsList">
+          <p class="dash-empty-state">Loading bookings...</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== TOP ARTISTS TAB ===== -->
+    <div class="dash-tab" id="tab-topartists">
+
+      <div class="dash-page-header">
+        <div>
+          <h1>Top Artists</h1>
+          <p class="dash-subtitle">Select which Pro artists are featured on the homepage.</p>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <p style="color:#aaa; font-size:0.9rem; margin-bottom:20px;">
+          Only Pro artists are eligible. Toggle the switch to feature or unfeature an artist.
+          Featured artists appear in the Top Artists section on the landing page.
+        </p>
+        <div id="topArtistsList">
+          <p class="dash-empty-state">Loading artists...</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== OG MEMBERS TAB ===== -->
+    <div class="dash-tab" id="tab-og">
+
+      <div class="dash-page-header">
+        <div>
+          <h1>OG Members</h1>
+          <p class="dash-subtitle">The first 10 artists — free Pro for life.</p>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div class="admin-og-counter" id="ogCounter">
+          <div class="admin-og-stat">
+            <p class="dash-stat-number" id="ogClaimed">—</p>
+            <p class="dash-stat-label">Spots Claimed</p>
+          </div>
+          <div class="admin-og-stat">
+            <p class="dash-stat-number" id="ogRemaining">—</p>
+            <p class="dash-stat-label">Spots Remaining</p>
+          </div>
+          <div class="admin-og-stat">
+            <p class="dash-stat-number">10</p>
+            <p class="dash-stat-label">Total Spots</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-card">
+        <div id="ogMembersList">
+          <p class="dash-empty-state">Loading OG members...</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import {
+      collection, doc, getDocs, getDoc,
+      updateDoc, query, orderBy, where, onSnapshot
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // ── Auth guard — admin only ──
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = 'artist-login.html'; return; }
+
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (!userDoc.exists() || userDoc.data().role !== 'admin') {
+        await signOut(auth);
+        window.location.href = 'index.html';
+        return;
+      }
+
+      loadOverview();
+      loadUsers();
+      loadBookings();
+      loadTopArtists();
+      loadOGMembers();
+    });
+
+    // ── Tab navigation ──
+    const navItems = document.querySelectorAll('.dash-nav-item');
+    const tabs     = document.querySelectorAll('.dash-tab');
+
+    function switchTab(target) {
+      navItems.forEach(n => n.classList.remove('active'));
+      tabs.forEach(t => t.classList.remove('active'));
+      document.querySelector(`[data-tab="${target}"]`)?.classList.add('active');
+      document.getElementById(`tab-${target}`)?.classList.add('active');
+      document.getElementById('sidebar').classList.remove('open');
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', e => { e.preventDefault(); switchTab(item.dataset.tab); });
+    });
+
+    document.querySelectorAll('.dash-card-link[data-goto]').forEach(link => {
+      link.addEventListener('click', e => { e.preventDefault(); switchTab(link.dataset.goto); });
+    });
+
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'index.html';
+    });
+
+    // ── Overview ──
+    async function loadOverview() {
+      const usersSnap    = await getDocs(collection(db, 'users'));
+      const bookingsSnap = await getDocs(collection(db, 'bookings'));
+
+      let artists = 0, canvas = 0, pro = 0;
+      const recentUsers = [];
+
+      usersSnap.forEach(d => {
+        const u = d.data();
+        if (u.role === 'artist') artists++;
+        if (u.role === 'canvas') canvas++;
+        if (u.plan === 'pro')    pro++;
+        recentUsers.push(u);
+      });
+
+      recentUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+      document.getElementById('statArtists').textContent  = artists;
+      document.getElementById('statCanvas').textContent   = canvas;
+      document.getElementById('statPro').textContent      = pro;
+      document.getElementById('statBookings').textContent = bookingsSnap.size;
+
+      // Recent signups
+      const signupEl = document.getElementById('recentSignups');
+      if (recentUsers.length === 0) {
+        signupEl.innerHTML = '<p class="dash-empty-state">No users yet.</p>';
+      } else {
+        signupEl.innerHTML = recentUsers.slice(0, 5).map(u => `
+          <div class="admin-user-row">
+            <div>
+              <p class="admin-user-name">${u.name || '—'}</p>
+              <p class="admin-user-meta">${u.email} · ${u.role}</p>
+            </div>
+            <span class="admin-role-badge ${u.plan === 'pro' ? 'badge-pro' : 'badge-standard'}">
+              ${u.plan === 'pro' ? '⚡ Pro' : 'Standard'}
+            </span>
+          </div>
+        `).join('');
+      }
+
+      // Recent bookings
+      const bookingEl = document.getElementById('recentBookings');
+      const allBookings = [];
+      bookingsSnap.forEach(d => allBookings.push(d.data()));
+      allBookings.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+      if (allBookings.length === 0) {
+        bookingEl.innerHTML = '<p class="dash-empty-state">No bookings yet.</p>';
+      } else {
+        bookingEl.innerHTML = allBookings.slice(0, 5).map(b => `
+          <div class="admin-user-row">
+            <div>
+              <p class="admin-user-name">${b.canvasName} → ${b.artistName}</p>
+              <p class="admin-user-meta">📅 ${b.date} at ${b.time}</p>
+            </div>
+            <span class="admin-status-badge status-${b.status}">${b.status}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    // ── Users ──
+    let allUsers = [];
+
+    async function loadUsers() {
+      const snap = await getDocs(collection(db, 'users'));
+      allUsers = [];
+      snap.forEach(d => allUsers.push({ id: d.id, ...d.data() }));
+      allUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      renderUsers('all');
+    }
+
+    function renderUsers(filter) {
+      const el = document.getElementById('usersList');
+      let filtered = allUsers;
+      if (filter === 'artist') filtered = allUsers.filter(u => u.role === 'artist');
+      if (filter === 'canvas') filtered = allUsers.filter(u => u.role === 'canvas');
+      if (filter === 'pro')    filtered = allUsers.filter(u => u.plan === 'pro');
+
+      if (filtered.length === 0) {
+        el.innerHTML = '<p class="dash-empty-state">No users found.</p>';
+        return;
+      }
+
+      el.innerHTML = filtered.map(u => `
+        <div class="admin-user-row">
+          <div class="admin-user-info">
+            <p class="admin-user-name">${u.name || '—'} ${u.og ? '🔥' : ''}</p>
+            <p class="admin-user-meta">${u.email} · ${u.role} · joined ${u.createdAt ? u.createdAt.slice(0,10) : '—'}</p>
+            ${u.style ? `<p class="admin-user-meta">🖤 ${u.style} · 📍 ${u.location || '—'}</p>` : ''}
+          </div>
+          <div class="admin-user-actions">
+            <span class="admin-role-badge ${u.plan === 'pro' ? 'badge-pro' : 'badge-standard'}">
+              ${u.plan === 'pro' ? '⚡ Pro' : 'Standard'}
+            </span>
+            ${u.role === 'artist' ? `
+              <button class="admin-action-btn" onclick="togglePro('${u.id}', '${u.plan}')">
+                ${u.plan === 'pro' ? 'Remove Pro' : 'Grant Pro'}
+              </button>
+            ` : ''}
+            <a href="profile.html?uid=${u.id}" target="_blank" class="admin-action-btn">View Profile</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Filter buttons for users
+    document.querySelectorAll('[data-filter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderUsers(btn.dataset.filter);
+      });
+    });
+
+    // Toggle Pro
+    window.togglePro = async (uid, currentPlan) => {
+      const newPlan = currentPlan === 'pro' ? 'standard' : 'pro';
+      await updateDoc(doc(db, 'users', uid), { plan: newPlan });
+      await loadUsers();
+      renderUsers(document.querySelector('[data-filter].active')?.dataset.filter || 'all');
+    };
+
+    // ── Bookings ──
+    let allBookingsData = [];
+
+    async function loadBookings() {
+      const snap = await getDocs(collection(db, 'bookings'));
+      allBookingsData = [];
+      snap.forEach(d => allBookingsData.push({ id: d.id, ...d.data() }));
+      allBookingsData.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+      renderBookings('all');
+    }
+
+    function renderBookings(filter) {
+      const el = document.getElementById('allBookingsList');
+      let filtered = allBookingsData;
+      if (filter !== 'all') filtered = allBookingsData.filter(b => b.status === filter);
+
+      if (filtered.length === 0) {
+        el.innerHTML = '<p class="dash-empty-state">No bookings found.</p>';
+        return;
+      }
+
+      el.innerHTML = filtered.map(b => `
+        <div class="admin-user-row">
+          <div>
+            <p class="admin-user-name">${b.canvasName} → ${b.artistName}</p>
+            <p class="admin-user-meta">📅 ${b.date} at ${b.time} · 📐 ${b.size}</p>
+            <p class="admin-user-meta" style="color:#bbb; margin-top:4px;">${b.idea}</p>
+          </div>
+          <span class="admin-status-badge status-${b.status}">${b.status}</span>
+        </div>
+      `).join('');
+    }
+
+    document.querySelectorAll('[data-bfilter]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-bfilter]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderBookings(btn.dataset.bfilter);
+      });
+    });
+
+    // ── Top Artists ──
+    async function loadTopArtists() {
+      const snap = await getDocs(collection(db, 'users'));
+      const proArtists = [];
+      snap.forEach(d => {
+        const u = d.data();
+        if (u.role === 'artist' && u.plan === 'pro') {
+          proArtists.push({ id: d.id, ...u });
+        }
+      });
+
+      const el = document.getElementById('topArtistsList');
+
+      if (proArtists.length === 0) {
+        el.innerHTML = '<p class="dash-empty-state">No Pro artists yet.</p>';
+        return;
+      }
+
+      el.innerHTML = proArtists.map(a => `
+        <div class="admin-user-row">
+          <div>
+            <p class="admin-user-name">${a.name}</p>
+            <p class="admin-user-meta">🖤 ${a.style || '—'} · 📍 ${a.location || '—'}</p>
+          </div>
+          <div class="admin-user-actions">
+            <span class="admin-featured-label" id="feat-label-${a.id}">
+              ${a.featured ? '⭐ Featured' : 'Not Featured'}
+            </span>
+            <label class="admin-toggle">
+              <input type="checkbox" id="feat-${a.id}" ${a.featured ? 'checked' : ''}
+                onchange="toggleFeatured('${a.id}', this.checked)">
+              <span class="admin-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.toggleFeatured = async (uid, featured) => {
+      await updateDoc(doc(db, 'users', uid), { featured });
+      const label = document.getElementById(`feat-label-${uid}`);
+      if (label) label.textContent = featured ? '⭐ Featured' : 'Not Featured';
+    };
+
+    // ── OG Members ──
+    async function loadOGMembers() {
+      const snap = await getDocs(collection(db, 'users'));
+      const ogMembers = [];
+      snap.forEach(d => {
+        const u = d.data();
+        if (u.og === true) ogMembers.push({ id: d.id, ...u });
+      });
+
+      // Get OG count from config
+      let claimed = ogMembers.length;
+      try {
+        const ogDoc = await getDoc(doc(db, 'config', 'og'));
+        if (ogDoc.exists()) claimed = ogDoc.data().count || claimed;
+      } catch(e) {}
+
+      document.getElementById('ogClaimed').textContent   = claimed;
+      document.getElementById('ogRemaining').textContent = Math.max(0, 10 - claimed);
+
+      const el = document.getElementById('ogMembersList');
+
+      if (ogMembers.length === 0) {
+        el.innerHTML = '<p class="dash-empty-state">No OG members yet.</p>';
+        return;
+      }
+
+      el.innerHTML = ogMembers.map(u => `
+        <div class="admin-user-row">
+          <div>
+            <p class="admin-user-name">🔥 ${u.name}</p>
+            <p class="admin-user-meta">${u.email} · joined ${u.createdAt ? u.createdAt.slice(0,10) : '—'}</p>
+            <p class="admin-user-meta">🖤 ${u.style || '—'} · 📍 ${u.location || '—'}</p>
+          </div>
+          <span class="admin-role-badge badge-pro">⚡ Pro for Life</span>
+        </div>
+      `).join('');
+    }
+
+  </script>
+
+</body>
+</html>

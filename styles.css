@@ -10,6 +10,7 @@ body {
   background: radial-gradient(circle at top, #1a1d24, #0f1115);
   color: white;
   overflow-x: hidden;
+  animation: fadeIn 0.3s ease forwards;
 }
 
 /* ===================== NAV ===================== */
@@ -19,7 +20,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 16px 40px;
-  background: rgba(5, 6, 8, 0.95);
+  background: rgba(5, 6, 8, 0.233);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255,255,255,0.07);
   position: sticky;
@@ -38,11 +39,21 @@ body {
   color: white;
 }
 
+.nav a.nav-active {
+  color: white;
+  font-weight: 600;
+}
+
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
   font-weight: 600;
+}
+
+.logo span {
+  display: inline;
+  font-size: 1.1rem;
 }
 
 .logo-img {
@@ -52,29 +63,15 @@ body {
   object-fit: cover;
   border: 2px solid rgba(225, 29, 46, 0.6);
   box-shadow: 0 0 12px rgba(225, 29, 46, 0.4);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-      .logo-img:hover {
-        transform: rotate(10deg) scale(1.1);
-        }
+.logo-img:hover {
+  transform: rotate(10deg) scale(1.1);
+  box-shadow: 0 0 20px rgba(225, 29, 46, 0.7);
+}
 
-        .logo span {
-          display: inline;
-          }
-}
-.logo-img {
-  width: 40px;
-    transition: transform 0.3s ease;
-    }
-    
-    .logo-img:hover {
-      transform: rotate(10deg) scale(1.1);
-      }
-      
-      .logo span {
-        display: inline;
-}
+/* ===================== HERO ===================== */
 
 .hero {
   text-align: center;
@@ -88,8 +85,7 @@ body {
 
 .hero p {
   color: #aaa;
-  margin-bottom: 30px;grep -n 'logo-img' /workspaces/InkScout/styles.css
-  
+  margin-bottom: 30px;
 }
 
 .hero-buttons {
@@ -198,17 +194,11 @@ body {
 .delay-3 { animation-delay: 0.6s; }
 
 @keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeDown {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
@@ -225,28 +215,128 @@ body {
   100% { box-shadow: 0 0 0 rgba(225,29,46,0.4); }
 }
 
+/* ===================== HOME PAGE EXTRAS ===================== */
+
+.tatitle {
+  text-align: center;
+}
+
+.fire {
+  text-align: center;
+  color: #aaa;
+  margin-top: 5px;
+}
+
+.homepic {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px 60px;
+}
+
+.homepic img {
+  width: 420px;
+  max-width: 90%;
+  height: auto;
+  display: block;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 40px rgba(225, 29, 46, 0.35));
+  transition: transform 0.4s ease, filter 0.4s ease;
+  animation: fadeUp 1s ease forwards;
+}
+
+.homepic img:hover {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 60px rgba(225, 29, 46, 0.55));
+}
+
+.video img {
+  height: 500px;
+  width: 1000px;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
 /* ===================== BROWSE PAGE ===================== */
 
 .browse-header {
   text-align: center;
-  margin-top: 40px;
+  padding: 60px 20px 20px;
+}
+
+.browse-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.browse-header p {
+  color: #aaa;
 }
 
 .search-bar {
   display: flex;
   justify-content: center;
   gap: 10px;
-  padding: 20px;
+  padding: 16px 40px;
   flex-wrap: wrap;
 }
 
 .search-bar input,
 .search-bar select {
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
-  background: #2a2f3a;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #2a2f3a;
+  background: #1a1d24;
   color: white;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  min-width: 160px;
+}
+
+.search-bar input:focus,
+.search-bar select:focus {
+  border-color: #e11d2e;
+}
+
+.browse-results-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 40px 0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.browse-results-count {
+  color: #666;
+  font-size: 0.88rem;
+}
+
+.browse-clear-btn {
+  background: transparent;
+  border: 1px solid #2a2f3a;
+  color: #888;
+  padding: 5px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  transition: 0.2s;
+}
+
+.browse-clear-btn:hover {
+  border-color: #e11d2e;
+  color: #e11d2e;
+}
+
+.browse-no-results {
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 20px;
+  text-align: center;
+  color: #555;
 }
 
 /* ===================== ARTIST GRID ===================== */
@@ -274,12 +364,27 @@ body {
   height: 180px;
   background: linear-gradient(135deg, #333, #111);
   overflow: hidden;
+  position: relative;
 }
 
 .artist-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+.artist-card-pro-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #f5a623, #e11d2e);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
 }
 
 .artist-info {
@@ -352,6 +457,8 @@ body {
   transition: 0.3s ease;
   display: flex;
   flex-direction: column;
+  position: relative;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -369,6 +476,20 @@ body {
 .card-body {
   padding: 16px;
   flex-grow: 1;
+}
+
+.card[data-style]:hover::after {
+  content: 'Filter by this style';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(225,29,46,0.85);
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .carousel-btn {
@@ -391,49 +512,6 @@ body {
 
 .carousel-btn.left  { left: 0; }
 .carousel-btn.right { right: 0; }
-
-/* ===================== HOME PAGE EXTRAS ===================== */
-
-.tatitle {
-  text-align: center;
-}
-
-.fire {
-  text-align: center;
-  color: #aaa;
-  margin-top: 5px;
-}
-
-.homepic {
-    display: flex;
-      justify-content: center;
-        padding: 20px 20px 60px;
-        }
-
-        .homepic img {
-          width: 420px;
-            max-width: 90%;
-              height: auto;
-                display: block;
-                  filter: drop-shadow(0 0 40px rgba(225, 29, 46, 0.35));
-                    transition: transform 0.4s ease, filter 0.4s ease;
-                      animation: fadeUp 1s ease forwards;
-                      }
-
-                      .homepic img:hover {
-                        transform: scale(1.04);
-                          filter: drop-shadow(0 0 60px rgba(225, 29, 46, 0.55));
-                          }
-}
-
-.video img {
-  height: 500px;
-  width: 1000px;
-  display: block;
-  margin: 0 auto;
-  object-fit: cover;
-  border-radius: 12px;
-}
 
 /* ===================== PRE-REGISTER PAGE ===================== */
 
@@ -513,8 +591,6 @@ body {
 }
 
 /* ===================== PRE-LOGIN PAGE ===================== */
-/* FIXED: These were incorrectly nested inside @media (max-width: 768px)
-   so they only applied on mobile. Moved outside so they always apply. */
 
 .login-hero {
   text-align: center;
@@ -583,7 +659,6 @@ body {
 
 /* ===================== PROFILE PAGE ===================== */
 
-/* --- Banner --- */
 .profile-banner {
   width: 100%;
   height: 260px;
@@ -599,7 +674,6 @@ body {
   filter: brightness(0.55);
 }
 
-/* --- Identity row --- */
 .profile-identity {
   display: flex;
   align-items: flex-end;
@@ -624,7 +698,6 @@ body {
   display: block;
 }
 
-/* PRO badge on avatar */
 .pro-badge {
   position: absolute;
   bottom: 4px;
@@ -701,7 +774,6 @@ body {
   color: #e11d2e !important;
 }
 
-/* --- Body layout --- */
 .profile-body {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -724,14 +796,12 @@ body {
   color: #fff;
 }
 
-/* --- Bio --- */
 .profile-bio {
   color: #bbb;
   line-height: 1.8;
   font-size: 0.97rem;
 }
 
-/* --- Portfolio grid --- */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -759,7 +829,6 @@ body {
   display: block;
 }
 
-/* --- Reviews --- */
 .reviews-list {
   display: flex;
   flex-direction: column;
@@ -800,7 +869,6 @@ body {
   line-height: 1.7;
 }
 
-/* --- Sidebar --- */
 .profile-right {
   display: flex;
   flex-direction: column;
@@ -828,7 +896,6 @@ body {
   line-height: 1.6;
 }
 
-/* PRO sidebar card */
 .pro-sidebar-card {
   border-color: #e11d2e55;
   background: linear-gradient(135deg, #1e1010, #1a1d24);
@@ -849,7 +916,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* Details list */
 .profile-details-list {
   list-style: none;
   display: flex;
@@ -865,7 +931,6 @@ body {
   align-items: center;
 }
 
-/* Socials */
 .profile-socials {
   display: flex;
   flex-direction: column;
@@ -888,44 +953,12 @@ body {
   color: white;
 }
 
-/* Book CTA card */
 .book-cta-card {
   border-color: #e11d2e44;
 }
 
 .book-cta-card h3 {
   font-size: 1.1rem;
-}
-
-/* --- Responsive --- */
-@media (max-width: 900px) {
-  .profile-body {
-    grid-template-columns: 1fr;
-    padding: 0 20px 60px;
-  }
-
-  .profile-identity {
-    padding: 0 20px 24px;
-    margin-top: -40px;
-  }
-
-  .profile-right {
-    order: -1;
-  }
-
-  .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 500px) {
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .profile-name-row h1 {
-    font-size: 1.6rem;
-  }
 }
 
 /* ===================== REGISTER / LOGIN FORMS ===================== */
@@ -1006,6 +1039,24 @@ body {
   background: #111;
 }
 
+.register-form textarea {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #2e2e2e;
+  background: #111;
+  color: white;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.register-form textarea:focus {
+  border-color: #e11d2e;
+}
+
 .form-submit {
   width: 100%;
   padding: 14px;
@@ -1045,7 +1096,6 @@ body {
   color: #e11d2e;
 }
 
-
 .form-footer-text {
   text-align: center;
   margin-top: 16px;
@@ -1062,51 +1112,6 @@ body {
   text-decoration: underline;
 }
 
-/* ===================== RESPONSIVE ===================== */
-
-@media (max-width: 768px) {
-
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .features {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .register-hero h1 {
-    font-size: 2.8rem;
-  }
-
-  .register-options {
-    grid-template-columns: 1fr;
-  }
-
-  .register-card img {
-    height: 240px;
-  }
-
-  .login-hero h1 {
-    font-size: 2.8rem;
-  }
-
-  .login-card {
-    width: 100%;
-  }
-
-  .login-card img {
-    height: 220px;
-  }
-
-  .homepic img,
-  .video img {
-    width: 100%;
-    height: 280px;
-  }
-
-}
-
 /* ===================== DASHBOARD ===================== */
 
 .dashboard-body {
@@ -1115,7 +1120,6 @@ body {
   background: #0d0f13;
 }
 
-/* ── Sidebar ── */
 .dash-sidebar {
   width: 240px;
   min-height: 100vh;
@@ -1142,7 +1146,8 @@ body {
 }
 
 .dash-logo .logo-img {
-  width: 32px;
+  width: 36px;
+  height: 36px;
 }
 
 .dash-nav {
@@ -1232,7 +1237,6 @@ body {
   color: #e11d2e;
 }
 
-/* ── Main content ── */
 .dash-main {
   margin-left: 240px;
   flex: 1;
@@ -1240,7 +1244,6 @@ body {
   min-height: 100vh;
 }
 
-/* ── Mobile header ── */
 .dash-mobile-header {
   display: none;
   align-items: center;
@@ -1263,16 +1266,9 @@ body {
   font-size: 1.1rem;
 }
 
-/* ── Tabs ── */
-.dash-tab {
-  display: none;
-}
+.dash-tab { display: none; }
+.dash-tab.active { display: block; }
 
-.dash-tab.active {
-  display: block;
-}
-
-/* ── Page header ── */
 .dash-page-header {
   display: flex;
   justify-content: space-between;
@@ -1304,7 +1300,6 @@ body {
   padding: 5px 14px;
 }
 
-/* ── Stats row ── */
 .dash-stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1323,13 +1318,9 @@ body {
   transition: border-color 0.2s;
 }
 
-.dash-stat-card:hover {
-  border-color: #2e3240;
-}
+.dash-stat-card:hover { border-color: #2e3240; }
 
-.dash-stat-icon {
-  font-size: 1.5rem;
-}
+.dash-stat-icon { font-size: 1.5rem; }
 
 .dash-stat-number {
   font-size: 1.4rem;
@@ -1343,7 +1334,6 @@ body {
   margin-top: 2px;
 }
 
-/* ── Cards ── */
 .dash-card {
   background: #111318;
   border: 1px solid #1e2129;
@@ -1372,11 +1362,8 @@ body {
   font-weight: 600;
 }
 
-.dash-card-link:hover {
-  text-decoration: underline;
-}
+.dash-card-link:hover { text-decoration: underline; }
 
-/* ── Profile summary inside card ── */
 .dash-profile-summary {
   display: flex;
   align-items: center;
@@ -1408,7 +1395,6 @@ body {
   margin-bottom: 4px;
 }
 
-/* ── Empty state ── */
 .dash-empty-state {
   color: #555;
   font-size: 0.9rem;
@@ -1416,7 +1402,6 @@ body {
   padding: 24px 0;
 }
 
-/* ── Pro upgrade banner ── */
 .dash-pro-upgrade-banner {
   background: linear-gradient(135deg, #1a1010, #1a1d24);
   border: 1px solid #e11d2e55;
@@ -1483,7 +1468,6 @@ body {
   box-shadow: 0 0 20px rgba(225,29,46,0.4);
 }
 
-/* ── Pro gate (locked features) ── */
 .dash-pro-gate {
   background: #111318;
   border: 1px dashed #2a2f3a;
@@ -1513,29 +1497,7 @@ body {
   max-width: 360px;
 }
 
-/* ── Settings textarea ── */
-.register-form textarea {
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid #2e2e2e;
-  background: #111;
-  color: white;
-  font-size: 0.95rem;
-  font-family: 'Inter', sans-serif;
-  resize: vertical;
-  outline: none;
-  transition: border-color 0.2s;
-  width: 100%;
-}
-
-.register-form textarea:focus {
-  border-color: #e11d2e;
-}
-
-/* ── Danger card ── */
-.dash-danger-card {
-  border-color: #e11d2e33;
-}
+.dash-danger-card { border-color: #e11d2e33; }
 
 .dash-delete-btn {
   background: transparent;
@@ -1553,50 +1515,13 @@ body {
   color: white;
 }
 
-/* ── Upload btn ── */
 .dash-upload-btn {
   padding: 10px 20px;
   font-size: 0.9rem;
 }
 
-/* ── Responsive ── */
-@media (max-width: 900px) {
-  .dash-sidebar {
-    transform: translateX(-100%);
-  }
-
-  .dash-sidebar.open {
-    transform: translateX(0);
-  }
-
-  .dash-main {
-    margin-left: 0;
-    padding: 20px;
-  }
-
-  .dash-mobile-header {
-    display: flex;
-  }
-
-  .dash-stats-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 500px) {
-  .dash-stats-row {
-    grid-template-columns: 1fr;
-  }
-
-  .dash-pro-upgrade-banner {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
 /* ===================== CANVAS DASHBOARD EXTRAS ===================== */
 
-/* Quick actions grid */
 .canvas-quick-actions {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1621,9 +1546,7 @@ body {
   cursor: pointer;
 }
 
-.canvas-action-btn span {
-  font-size: 1.8rem;
-}
+.canvas-action-btn span { font-size: 1.8rem; }
 
 .canvas-action-btn:hover {
   border-color: #e11d2e55;
@@ -1631,14 +1554,12 @@ body {
   transform: translateY(-3px);
 }
 
-/* Saved artists grid */
 .saved-artists-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
 }
 
-/* Messages layout */
 .dash-messages-layout {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -1668,153 +1589,7 @@ body {
   margin-bottom: 12px;
 }
 
-.dash-thread-empty p {
-  font-size: 0.9rem;
-}
-
-@media (max-width: 900px) {
-  .canvas-quick-actions {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dash-messages-layout {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-
-  .dash-convo-thread {
-    min-height: 300px;
-  }
-}
-
-@media (max-width: 500px) {
-  .canvas-quick-actions {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* ===================== BROWSE PAGE EXTRAS ===================== */
-
-.browse-header {
-  text-align: center;
-  padding: 60px 20px 20px;
-}
-
-.browse-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.browse-header p {
-  color: #aaa;
-}
-
-.search-bar {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 16px 40px;
-  flex-wrap: wrap;
-}
-
-.search-bar input,
-.search-bar select {
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #2a2f3a;
-  background: #1a1d24;
-  color: white;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s;
-  min-width: 160px;
-}
-
-.search-bar input:focus,
-.search-bar select:focus {
-  border-color: #e11d2e;
-}
-
-.browse-results-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 40px 0;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.browse-results-count {
-  color: #666;
-  font-size: 0.88rem;
-}
-
-.browse-clear-btn {
-  background: transparent;
-  border: 1px solid #2a2f3a;
-  color: #888;
-  padding: 5px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.82rem;
-  transition: 0.2s;
-}
-
-.browse-clear-btn:hover {
-  border-color: #e11d2e;
-  color: #e11d2e;
-}
-
-.browse-no-results {
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 80px 20px;
-  text-align: center;
-  color: #555;
-}
-
-/* Pro badge on artist card */
-.artist-img {
-  position: relative;
-}
-
-.artist-card-pro-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: linear-gradient(135deg, #f5a623, #e11d2e);
-  color: white;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 20px;
-  letter-spacing: 0.5px;
-}
-
-/* Carousel style cards clickable */
-.card[data-style] {
-  cursor: pointer;
-}
-
-.card[data-style]:hover::after {
-  content: 'Filter by this style';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(225,29,46,0.85);
-  color: white;
-  text-align: center;
-  padding: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.card[data-style] {
-  position: relative;
-  overflow: hidden;
-}
+.dash-thread-empty p { font-size: 0.9rem; }
 
 /* ===================== UPGRADE PAGE ===================== */
 
@@ -1859,7 +1634,6 @@ body {
   margin: 0 auto;
 }
 
-/* ── Plan comparison grid ── */
 .upgrade-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1875,7 +1649,6 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
 .upgrade-plan-card--pro {
@@ -1899,9 +1672,7 @@ body {
   white-space: nowrap;
 }
 
-.upgrade-plan-header {
-  margin-bottom: 28px;
-}
+.upgrade-plan-header { margin-bottom: 28px; }
 
 .upgrade-plan-header h2 {
   font-size: 1.4rem;
@@ -1941,19 +1712,9 @@ body {
   padding: 2px 0;
 }
 
-.feature-yes {
-  color: #ccc;
-}
-
-.feature-no {
-  color: #444;
-  text-decoration: line-through;
-}
-
-.pro-feature {
-  color: white;
-  font-weight: 500;
-}
+.feature-yes { color: #ccc; }
+.feature-no  { color: #444; text-decoration: line-through; }
+.pro-feature { color: white; font-weight: 500; }
 
 .upgrade-plan-btn {
   width: 100%;
@@ -1967,9 +1728,7 @@ body {
   display: block;
 }
 
-.upgrade-cta-btn {
-  font-size: 1rem;
-}
+.upgrade-cta-btn { font-size: 1rem; }
 
 .upgrade-secure-note {
   text-align: center;
@@ -1978,7 +1737,6 @@ body {
   margin-top: 12px;
 }
 
-/* ── FAQ ── */
 .upgrade-faq {
   max-width: 680px;
   margin: 0 auto;
@@ -2019,14 +1777,8 @@ body {
   transition: color 0.2s;
 }
 
-.faq-question:hover {
-  color: #e11d2e;
-}
-
-.faq-arrow {
-  font-size: 0.8rem;
-  color: #888;
-}
+.faq-question:hover { color: #e11d2e; }
+.faq-arrow { font-size: 0.8rem; color: #888; }
 
 .faq-answer {
   display: none;
@@ -2036,11 +1788,8 @@ body {
   line-height: 1.7;
 }
 
-.faq-answer.open {
-  display: block;
-}
+.faq-answer.open { display: block; }
 
-/* ── Success page ── */
 .upgrade-success-icon {
   font-size: 4rem;
   margin-bottom: 16px;
@@ -2073,25 +1822,9 @@ body {
   font-size: 0.78rem;
 }
 
-@media (max-width: 700px) {
-  .upgrade-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .upgrade-hero h1 {
-    font-size: 2.2rem;
-  }
-
-  .upgrade-success-features {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 /* ===================== MESSAGING ===================== */
 
-.msg-main {
-  padding: 0;
-}
+.msg-main { padding: 0; }
 
 .msg-layout {
   display: grid;
@@ -2099,7 +1832,6 @@ body {
   height: 100vh;
 }
 
-/* ── Conversation panel ── */
 .msg-convo-panel {
   border-right: 1px solid #1e2129;
   display: flex;
@@ -2133,13 +1865,8 @@ body {
   transition: 0.2s;
 }
 
-.msg-convo-item:hover {
-  background: #1a1d24;
-}
-
-.msg-convo-item.active {
-  background: #1e2129;
-}
+.msg-convo-item:hover { background: #1a1d24; }
+.msg-convo-item.active { background: #1e2129; }
 
 .msg-convo-avatar {
   width: 44px;
@@ -2186,7 +1913,6 @@ body {
   display: block;
 }
 
-/* ── Thread panel ── */
 .msg-thread-panel {
   display: flex;
   flex-direction: column;
@@ -2203,13 +1929,8 @@ body {
   gap: 12px;
 }
 
-.msg-thread-empty span {
-  font-size: 3rem;
-}
-
-.msg-thread-empty p {
-  font-size: 0.9rem;
-}
+.msg-thread-empty span { font-size: 3rem; }
+.msg-thread-empty p   { font-size: 0.9rem; }
 
 .msg-thread-active {
   flex: 1;
@@ -2218,7 +1939,6 @@ body {
   height: 100vh;
 }
 
-/* Thread header */
 .msg-thread-header {
   display: flex;
   align-items: center;
@@ -2246,7 +1966,6 @@ body {
   margin-top: 2px;
 }
 
-/* Bubbles */
 .msg-bubble-list {
   flex: 1;
   overflow-y: auto;
@@ -2287,7 +2006,6 @@ body {
   text-align: right;
 }
 
-/* Pro gate in thread */
 .msg-pro-gate {
   padding: 20px 24px;
   background: #111318;
@@ -2299,7 +2017,6 @@ body {
   color: #aaa;
 }
 
-/* Input row */
 .msg-input-row {
   padding: 16px 24px;
   border-top: 1px solid #1e2129;
@@ -2325,9 +2042,7 @@ body {
   min-height: 44px;
 }
 
-.msg-input:focus {
-  border-color: #e11d2e;
-}
+.msg-input:focus { border-color: #e11d2e; }
 
 .msg-send-btn {
   padding: 12px 20px;
@@ -2337,29 +2052,9 @@ body {
   height: 44px;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-  .msg-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .msg-convo-panel {
-    display: none;
-  }
-
-  .msg-convo-panel.mobile-visible {
-    display: flex;
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-  }
-}
-
 /* ===================== BOOKING ===================== */
 
-.booking-card {
-  max-width: 580px;
-}
+.booking-card { max-width: 580px; }
 
 .booking-artist-header {
   display: flex;
@@ -2388,7 +2083,6 @@ body {
   margin-top: 3px;
 }
 
-/* Booking card items in dashboard */
 .booking-card-item {
   background: #1a1d24;
   border: 1px solid #2a2f3a;
@@ -2398,13 +2092,8 @@ body {
   transition: border-color 0.2s;
 }
 
-.booking-card-item:last-child {
-  margin-bottom: 0;
-}
-
-.booking-card-item:hover {
-  border-color: #3a3f4a;
-}
+.booking-card-item:last-child { margin-bottom: 0; }
+.booking-card-item:hover { border-color: #3a3f4a; }
 
 .booking-card-top {
   display: flex;
@@ -2461,72 +2150,8 @@ body {
   font-weight: 600;
 }
 
-/* ===================== POLISH ===================== */
-
-/* Smooth page transitions */
-body {
-  animation: fadeIn 0.3s ease forwards;
-}
-
-/* Better image loading — prevent layout shift */
-img {
-  max-width: 100%;
-}
-
-/* Active nav link highlight */
-.nav a.nav-active {
-  color: white;
-  font-weight: 600;
-}
-
-/* Artist card image fix — ensure consistent height */
-.artist-img img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  display: block;
-}
-
-/* Input placeholder color */
-::placeholder {
-  color: #444;
-}
-
-/* Select arrow color fix */
-select {
-  appearance: auto;
-  color-scheme: dark;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0f1115;
-}
-::-webkit-scrollbar-thumb {
-  background: #2a2f3a;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #3a4050;
-}
-
-/* Focus ring accessibility */
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid #e11d2e;
-  outline-offset: 2px;
-}
-
 /* ===================== OG MEMBER SYSTEM ===================== */
 
-/* OG badge — on profile avatar and dashboard */
 .og-badge {
   background: linear-gradient(135deg, #ff6b00, #e11d2e);
   color: white;
@@ -2545,7 +2170,6 @@ textarea:focus-visible {
   right: -4px;
 }
 
-/* OG welcome banner in dashboard */
 .og-welcome-banner {
   background: linear-gradient(135deg, #1a0f00, #1a1210);
   border: 1px solid #ff6b0055;
@@ -2591,13 +2215,10 @@ textarea:focus-visible {
   transition: color 0.2s;
 }
 
-.og-welcome-close:hover {
-  color: white;
-}
+.og-welcome-close:hover { color: white; }
 
-/* OG counter on landing page hero */
 .og-counter {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -2609,11 +2230,9 @@ textarea:focus-visible {
   font-size: 0.85rem;
   color: #ff8c40;
   font-weight: 600;
-  display: inline-flex;
   animation: fadeIn 1s ease forwards;
 }
 
-/* OG notice on register page */
 .og-register-notice {
   background: linear-gradient(135deg, #1a0f00, #1a1210);
   border: 1px solid #ff6b0055;
@@ -2681,8 +2300,281 @@ textarea:focus-visible {
   font-size: 0.85rem;
 }
 
-@media (max-width: 768px) {
-  .works-video-wrap {
-    padding: 20px 16px 40px;
+/* ===================== RESPONSIVE ===================== */
+
+@media (max-width: 900px) {
+  .profile-body {
+    grid-template-columns: 1fr;
+    padding: 0 20px 60px;
   }
+  .profile-identity {
+    padding: 0 20px 24px;
+    margin-top: -40px;
+  }
+  .profile-right { order: -1; }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .dash-sidebar { transform: translateX(-100%); }
+  .dash-sidebar.open { transform: translateX(0); }
+  .dash-main { margin-left: 0; padding: 20px; }
+  .dash-mobile-header { display: flex; }
+  .dash-stats-row { grid-template-columns: repeat(2, 1fr); }
+  .canvas-quick-actions { grid-template-columns: repeat(2, 1fr); }
+  .dash-messages-layout { grid-template-columns: 1fr; height: auto; }
+  .dash-convo-thread { min-height: 300px; }
+  .msg-layout { grid-template-columns: 1fr; }
+  .msg-convo-panel { display: none; }
+  .msg-convo-panel.mobile-visible {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+  }
+  .works-video-wrap { padding: 20px 16px 40px; }
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2rem; }
+  .features { flex-direction: column; align-items: center; }
+  .register-hero h1 { font-size: 2.8rem; }
+  .register-options { grid-template-columns: 1fr; }
+  .register-card img { height: 240px; }
+  .login-hero h1 { font-size: 2.8rem; }
+  .login-card { width: 100%; }
+  .login-card img { height: 220px; }
+  .homepic img, .video img { width: 100%; height: 280px; }
+}
+
+@media (max-width: 700px) {
+  .upgrade-grid { grid-template-columns: 1fr; }
+  .upgrade-hero h1 { font-size: 2.2rem; }
+  .upgrade-success-features { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .profile-name-row h1 { font-size: 1.6rem; }
+  .dash-stats-row { grid-template-columns: 1fr; }
+  .dash-pro-upgrade-banner { flex-direction: column; text-align: center; }
+}
+
+/* ===================== MISC ===================== */
+
+img { max-width: 100%; }
+
+::placeholder { color: #444; }
+
+select {
+  appearance: auto;
+  color-scheme: dark;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0f1115; }
+::-webkit-scrollbar-thumb { background: #2a2f3a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a4050; }
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #e11d2e;
+  outline-offset: 2px;
+}
+
+/* ===================== ADMIN DASHBOARD ===================== */
+
+.admin-badge {
+  background: linear-gradient(135deg, #7c3aed, #e11d2e);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  align-self: center;
+  box-shadow: 0 0 16px rgba(124, 58, 237, 0.4);
+}
+
+/* User rows */
+.admin-user-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #1e2129;
+  flex-wrap: wrap;
+}
+
+.admin-user-row:last-child {
+  border-bottom: none;
+}
+
+.admin-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-user-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.admin-user-meta {
+  color: #666;
+  font-size: 0.82rem;
+  margin-bottom: 2px;
+}
+
+.admin-user-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Role badges */
+.admin-role-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-pro {
+  background: linear-gradient(135deg, #f5a623, #e11d2e);
+  color: white;
+}
+
+.badge-standard {
+  background: #2a2f3a;
+  color: #888;
+}
+
+/* Status badges */
+.admin-status-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+.status-pending   { background: rgba(245,166,35,0.2);  color: #f5a623; }
+.status-confirmed { background: rgba(34,197,94,0.2);   color: #22c55e; }
+.status-declined  { background: rgba(225,29,46,0.2);   color: #e11d2e; }
+
+/* Action buttons */
+.admin-action-btn {
+  background: #1e2129;
+  border: 1px solid #2a2f3a;
+  color: #ccc;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.admin-action-btn:hover {
+  border-color: #e11d2e;
+  color: white;
+}
+
+/* Filter buttons */
+.admin-filter-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-filter-btn {
+  background: #1e2129;
+  border: 1px solid #2a2f3a;
+  color: #888;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.admin-filter-btn:hover {
+  color: white;
+  border-color: #3a4050;
+}
+
+.admin-filter-btn.active {
+  background: #e11d2e;
+  border-color: #e11d2e;
+  color: white;
+}
+
+/* OG counter */
+.admin-og-counter {
+  display: flex;
+  gap: 40px;
+  padding: 8px 0;
+  flex-wrap: wrap;
+}
+
+.admin-og-stat {
+  text-align: center;
+}
+
+/* Featured label */
+.admin-featured-label {
+  color: #888;
+  font-size: 0.82rem;
+}
+
+/* Toggle switch */
+.admin-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.admin-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.admin-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #2a2f3a;
+  border-radius: 24px;
+  transition: 0.3s;
+}
+
+.admin-toggle-slider:before {
+  content: '';
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.admin-toggle input:checked + .admin-toggle-slider {
+  background: #e11d2e;
+}
+
+.admin-toggle input:checked + .admin-toggle-slider:before {
+  transform: translateX(20px);
 }
