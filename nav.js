@@ -74,10 +74,10 @@
               <p class="nav-dropdown-role">${data.role === 'admin' ? 'Admin' : data.role === 'artist' ? 'Artist' : 'Canvas'}${data.plan === 'pro' ? ' · Pro' : ''}</p>
             </div>
             <div class="nav-dropdown-divider"></div>
-            <a href="${dashLink}" class="nav-dropdown-item">Dashboard</a>
-            ${data.role === 'artist' ? `<a href="profile.html?uid=${user.uid}" class="nav-dropdown-item">My Profile</a>` : ''}
+            <a href="${dashLink}" class="nav-dropdown-item" style="text-align:left;display:block;">Dashboard</a>
+            ${data.role === 'artist' ? `<a href="profile.html?uid=${user.uid}" class="nav-dropdown-item" style="text-align:left;display:block;">My Profile</a>` : ''}
             <div class="nav-dropdown-divider"></div>
-            <button class="nav-dropdown-item nav-dropdown-signout" id="navSignOut">Sign Out</button>
+            <button class="nav-dropdown-item nav-dropdown-signout" style="text-align:left;" id="navSignOut">Sign Out</button>
           </div>
         `;
 
