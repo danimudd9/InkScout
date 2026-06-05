@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/logo.png">
 </head>
 <body>
 
@@ -276,7 +277,7 @@
             <p>${artist.style}</p>
             <p style="color:#888; font-size:0.82rem; margin-top:2px;">📍 ${artist.location}</p>
             <span class="rating">⭐ ${artist.rating ?? 'New'}${artist.reviews > 0 ? ` (${artist.reviews})` : ''}</span>
-            <a href="profile.html" class="view-btn">View Profile</a>
+            <a href="profile.html?uid=${artist.uid}" class="view-btn">View Profile</a>
           </div>
         `;
         grid.appendChild(card);
@@ -354,5 +355,6 @@
     loadArtists();
   </script>
 
+<script src="nav.js"></script>
 </body>
 </html>

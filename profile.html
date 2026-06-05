@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/logo.png">
 </head>
 <body>
 
@@ -40,6 +41,8 @@
         <img class="profile-avatar" src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=300&auto=format&fit=crop" alt="Ava Black">
         <!-- PRO BADGE — remove this block for standard accounts -->
         <span class="pro-badge">⚡ PRO</span>
+        <!-- OG BADGE — shown for OG members -->
+        <span class="og-badge og-avatar-badge" id="profileOGBadge" style="display:none">🔥 OG</span>
       </div>
 
       <div class="profile-meta">
@@ -193,14 +196,71 @@
     import { auth, db } from './firebase.js';
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import {
-      collection, doc, addDoc, getDocs,
+      collection, doc, addDoc, getDocs, getDoc,
       query, where, serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+    const urlParams      = new URLSearchParams(window.location.search);
+    const artistUid      = urlParams.get('uid') || 'sample-artist-uid';
+    const isSampleArtist = artistUid === 'sample-artist-uid';
+
     // ── Set booking links dynamically based on URL param ──
-    const profileArtistUid = urlParams.get('uid') || 'sample-artist-uid';
-    document.getElementById('bookBtn').href     = `booking.html?uid=${profileArtistUid}`;
-    document.getElementById('sideBookBtn').href = `booking.html?uid=${profileArtistUid}`;
+    document.getElementById('bookBtn').href     = `booking.html?uid=${artistUid}`;
+    document.getElementById('sideBookBtn').href = `booking.html?uid=${artistUid}`;
+
+    // ── Load artist data from Firestore (skip for sample) ──
+    if (!isSampleArtist) {
+      getDoc(doc(db, 'users', artistUid)).then(snap => {
+        if (!snap.exists() || snap.data().role !== 'artist') return;
+        const a = snap.data();
+
+        // Update page title
+        document.title = `${a.name} - InkScout`;
+
+        // Update name, tags
+        document.querySelector('.profile-name-row h1').textContent = a.name || 'Artist';
+
+        // Update tags
+        const tagsEl = document.querySelector('.profile-tags');
+        tagsEl.innerHTML = `
+          <span class="tag">${a.style ? '🖤 ' + a.style : ''}</span>
+          <span class="tag">📍 ${a.location || '—'}</span>
+          ${a.rating ? `<span class="tag">⭐ ${a.rating}</span>` : ''}
+        `;
+
+        // Update bio
+        const bioEl = document.querySelector('.profile-bio');
+        if (bioEl && a.bio) bioEl.textContent = a.bio;
+
+        // Update avatar
+        const avatarEl = document.querySelector('.profile-avatar');
+        if (avatarEl && a.photo) avatarEl.src = a.photo;
+
+        // Pro badge
+        const proBadgeEl = document.querySelector('.pro-badge');
+        if (proBadgeEl) proBadgeEl.style.display = a.plan === 'pro' ? 'inline-flex' : 'none';
+
+        // OG badge
+        const ogBadgeEl = document.getElementById('profileOGBadge');
+        if (ogBadgeEl) ogBadgeEl.style.display = a.og ? 'inline-flex' : 'none';
+
+        // Sidebar details
+        const detailsList = document.querySelector('.profile-details-list');
+        if (detailsList) {
+          detailsList.innerHTML = `
+            <li><span>📍</span> ${a.location || '—'}</li>
+            <li><span>🖤</span> ${a.style || '—'}</li>
+            <li><span>📅</span> Booking: Open</li>
+            ${a.rate ? `<li><span>💰</span> ${a.rate}</li>` : ''}
+          `;
+        }
+
+        // Pro sidebar card
+        const proSideCard = document.querySelector('.pro-sidebar-card');
+        if (proSideCard) proSideCard.style.display = a.plan === 'pro' ? 'block' : 'none';
+
+      }).catch(err => console.warn('Could not load artist:', err));
+    }
 
     // ── Heart / Save toggle ──
     let saved = false;
@@ -212,11 +272,6 @@
     };
 
     // ── Message button ──
-    // Artist UID for this profile — in production this comes from the URL param
-    // e.g. profile.html?uid=abc123
-    const urlParams  = new URLSearchParams(window.location.search);
-    const artistUid  = urlParams.get('uid') || 'sample-artist-uid';
-
     document.getElementById('msgBtn').addEventListener('click', async () => {
       const user = auth.currentUser;
       if (!user) {
@@ -225,7 +280,6 @@
       }
 
       try {
-        // Check if conversation already exists
         const q = query(
           collection(db, 'conversations'),
           where('participants', 'array-contains', user.uid)
@@ -241,10 +295,8 @@
         });
 
         if (existingConvoId) {
-          // Conversation exists — go straight to it
           window.location.href = `messages.html?convo=${existingConvoId}`;
         } else {
-          // Create new conversation
           const convoRef = await addDoc(collection(db, 'conversations'), {
             participants:  [user.uid, artistUid],
             lastMessage:   '',
